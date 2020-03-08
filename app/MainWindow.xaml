@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:APO_v1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Closing="Window_Closing">
     <Grid>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
@@ -13,10 +13,10 @@
                 <MenuItem Header="_Open" Click="OpenBtn_Click" />
                 <MenuItem Header="_Save" />
                 <Separator />
-                <MenuItem Header="_Exit" />
+                <MenuItem Header="_Exit" Click="Exit_Click" />
             </MenuItem>
-            <MenuItem Header="_Lab1">
-                <MenuItem Header="_Histogram" />
+            <MenuItem x:Name="Lab1MenuI" Header="_Lab1" IsEnabled="False">
+                <MenuItem x:Name="HistogramBtn" Header="_Histogram"/>
             </MenuItem>
         </Menu>
     </Grid>

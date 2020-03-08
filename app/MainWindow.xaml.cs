@@ -22,7 +22,8 @@ namespace APO_v1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<MyImage> images = new List<MyImage>();
+        private Dictionary<string, ImageWindow> images = new Dictionary<string, ImageWindow>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -33,11 +34,65 @@ namespace APO_v1
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                MyImage newImg = new MyImage(new BitmapImage(new Uri(openFileDialog.FileName)));
-                images.Add(newImg);
-            }
                 
+                string orginalFileName = openFileDialog.FileName;
+                string tmpfileName = orginalFileName;
+                for (int i = 1; images.Keys.Contains(tmpfileName); ++i)
+                    tmpfileName = string.Format("{0}({1}).{2} ",orginalFileName.Split('.')[0],i,orginalFileName.Split('.')[1]);
+                ImageWindow newImgW = new ImageWindow(orginalFileName, tmpfileName, this);
+                images.Add(tmpfileName, newImgW);
+                Lab1MenuI.IsEnabled = true;
+                AddImageToHistogramMenu(tmpfileName);
+            }   
         }
-        
+        private void AddImageToHistogramMenu(string imageName)
+        {
+            string secureImageName = imageName.Replace("_", "__");
+            if (!HistogramBtn.Items.Contains(secureImageName))
+            {
+                MenuItem histogramMenuItem = new MenuItem() { Header = secureImageName };
+                histogramMenuItem.Click += histogramMenuItem_Click;
+                HistogramBtn.Items.Add(histogramMenuItem);
+            }
+        }
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            CloseAllWindows();
+            this.Close();
+        }
+        private void CloseAllWindows()
+        {
+            foreach (ImageWindow window in images.Values)
+            {
+                window.Close();
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            CloseAllWindows();
+        }
+
+        private void histogramMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem item = (MenuItem) e.Source;
+            string secureImageName = item.Header.ToString().Replace("__", "_");
+            images[secureImageName].MakeHistogram();
+        }
+        public void RemoveImgWindow(string tmpFileName)
+        {
+            images.Remove(tmpFileName);
+            string secureImageName = tmpFileName.Replace("_", "__");
+            foreach (MenuItem item in HistogramBtn.Items)
+            {
+                if (item.Header.Equals(secureImageName))
+                {
+                    HistogramBtn.Items.Remove(item);
+                    break;
+                }
+                   
+            }
+            if(HistogramBtn.Items.Count.Equals(0)) Lab1MenuI.IsEnabled = false;
+        }
     }
 }

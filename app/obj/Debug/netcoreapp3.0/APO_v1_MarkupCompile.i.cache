@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\user\source\repos\APO_v1\obj\Debug\netcoreapp3.0\
+F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\
 APO_v1
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_0
-C:\Users\user\source\repos\APO_v1\App.xaml
-2-759174386
+F:\Documents\CSharpProjects\ImageProcessingApp\app\App.xaml
+3-2046517560
 
-595618694
-193179592325
-ImageWindow.xaml;MainWindow.xaml;
+5-830853037
+1932093190410
+HistogramWindow.xaml;ImageWindow.xaml;MainWindow.xaml;
 
-False
+True
 
