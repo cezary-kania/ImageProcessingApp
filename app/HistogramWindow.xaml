@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:APO_v1"
         mc:Ignorable="d"
-        Title="HistogramWindow" Height="450" Width="800">
-    <Grid>
+        Title="HistogramWindow" Height="20" Width="800">
+    <Grid x:Name="Grid">
         <Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top">
             <MenuItem Header="_Histogram">
-                <MenuItem Header="_Save As..." />
+                <MenuItem Header="_Save As..." Click="SaveAsBtn_Click" />
                 <Separator />
                 <MenuItem Header="_Close" Click="CloseBtn_Click" />
             </MenuItem>
@@ -21,7 +21,6 @@
                 <MenuItem Header="_200%" />
             </MenuItem>
         </Menu>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="10,0,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Center" Width="761" Height="366"/>
-
+        <Grid x:Name="HistogramGrid"></Grid>
     </Grid>
 </Window>

@@ -27,6 +27,7 @@ namespace APO_v1
         public MainWindow()
         {
             InitializeComponent();
+            
         }
 
         private void OpenBtn_Click(object sender, RoutedEventArgs e)
@@ -42,7 +43,9 @@ namespace APO_v1
                 ImageWindow newImgW = new ImageWindow(orginalFileName, tmpfileName, this);
                 images.Add(tmpfileName, newImgW);
                 Lab1MenuI.IsEnabled = true;
+                SaveBtn.IsEnabled = true;
                 AddImageToHistogramMenu(tmpfileName);
+                AddImageSaveMenu(tmpfileName);
             }   
         }
         private void AddImageToHistogramMenu(string imageName)
@@ -79,6 +82,7 @@ namespace APO_v1
             string secureImageName = item.Header.ToString().Replace("__", "_");
             images[secureImageName].MakeHistogram();
         }
+        /*///
         public void RemoveImgWindow(string tmpFileName)
         {
             images.Remove(tmpFileName);
@@ -93,6 +97,42 @@ namespace APO_v1
                    
             }
             if(HistogramBtn.Items.Count.Equals(0)) Lab1MenuI.IsEnabled = false;
+        }
+        /*/
+        public void RemoveImgWindow(string tmpFileName)
+        {
+            images.Remove(tmpFileName);
+            string secureImageName = tmpFileName.Replace("_", "__");
+            foreach (MenuItem item in HistogramBtn.Items)
+            {
+                if (item.Header.Equals(secureImageName))
+                {
+                    HistogramBtn.Items.Remove(item);
+                    break;
+                }
+
+            }
+            if (images.Count.Equals(0))
+            {
+                Lab1MenuI.IsEnabled = false;
+                SaveBtn.IsEnabled = false;
+            }
+        }
+        //*///
+        private void AddImageSaveMenu(string imageName)
+        {
+            string secureImageName = imageName.Replace("_", "__");
+            if (!SaveBtn.Items.Contains(secureImageName))
+            {
+                MenuItem saveMenuItem = new MenuItem() { Header = secureImageName };
+                saveMenuItem.Click += (sender, e) =>
+                {
+                    MenuItem item = (MenuItem)e.Source;
+                    string secureImageName = item.Header.ToString().Replace("__", "_");
+                    images[secureImageName].Save();
+                };
+                SaveBtn.Items.Add(saveMenuItem);
+            }
         }
     }
 }

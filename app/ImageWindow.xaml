@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:APO_v1"
         mc:Ignorable="d"
-        Title="ImageWindow" Width="500" Height="600" Closing="Window_Closing">
+        Title="ImageWindow" Height="20" Closing="Window_Closing">
     <Grid>
         <Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top">
             <MenuItem Header="_File">
@@ -18,7 +18,7 @@
                 <MenuItem Header="_Histogram" Click="HistogramBtnClick" />
             </MenuItem>
         </Menu>
-        <Image x:Name="image" Margin="0,22,0,1" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Image x:Name="image" Margin="0,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
     </Grid>
 </Window>

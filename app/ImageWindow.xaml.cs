@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,6 +32,8 @@ namespace APO_v1
             bitmapImg = new BitmapImage(new Uri(orginalFileName));
             Title = this.tmpfileName;
             this.image.Source = bitmapImg;
+            Height = bitmapImg.Height;
+            Width = bitmapImg.Width;
             
             Show();
         }
@@ -44,6 +47,7 @@ namespace APO_v1
         private void HistogramBtnClick(object sender, RoutedEventArgs e)
         {
             MakeHistogram();
+            Title = bitmapImg.Width + " " + Width;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -59,6 +63,15 @@ namespace APO_v1
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             CloseAllWindows();
+            Close();
         }
+        public void Save()
+        {
+            if(File.Exists(tmpfileName))
+                Utils.SaveFile(bitmapImg, tmpfileName);
+            else
+                Utils.SaveFileAs(bitmapImg, tmpfileName);
+        }
+       
     }
 }
