@@ -10,7 +10,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
 namespace APO_v1
 {
     /// <summary>
@@ -22,24 +21,23 @@ namespace APO_v1
         private List<Window> subWindows = new List<Window>();
         public string orginalFileName { get; private set; }
         public string tmpfileName { get; private set; }
-        private BitmapImage bitmapImg;
+        private Models.Image img; 
         public ImageWindow(string orginalFileName, string tmpfileName, MainWindow mainWindow)
         {
             InitializeComponent();
             this.mainWindow = mainWindow;
             this.orginalFileName = orginalFileName;
             this.tmpfileName = tmpfileName;
-            bitmapImg = new BitmapImage(new Uri(orginalFileName));
+            img = new Models.Image(orginalFileName,tmpfileName);
             Title = this.tmpfileName;
-            this.image.Source = bitmapImg;
-            Height = bitmapImg.Height;
-            Width = bitmapImg.Width;
-            
+            imageControl.Source = img.bitmapImg;
+            Height = img.Height;
+            Width = img.Width;
             Show();
         }
         public void MakeHistogram()
         {
-            HistogramWindow histogramWindow = new HistogramWindow(tmpfileName, bitmapImg);
+            HistogramWindow histogramWindow = new HistogramWindow(img);
             subWindows.Add(histogramWindow);
             histogramWindow.Show();
         }
@@ -47,7 +45,6 @@ namespace APO_v1
         private void HistogramBtnClick(object sender, RoutedEventArgs e)
         {
             MakeHistogram();
-            Title = bitmapImg.Width + " " + Width;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -68,10 +65,19 @@ namespace APO_v1
         public void Save()
         {
             if(File.Exists(tmpfileName))
-                Utils.SaveFile(bitmapImg, tmpfileName);
+                Utils.SaveFile(img.bitmapImg, tmpfileName);
             else
-                Utils.SaveFileAs(bitmapImg, tmpfileName);
+                Utils.SaveFileAs(img.bitmapImg, tmpfileName);
         }
-       
+
+        private void SaveAsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Utils.SaveFileAs(img.bitmapImg, tmpfileName);
+        }
+
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Utils.SaveFile(img.bitmapImg, tmpfileName);
+        }
     }
 }

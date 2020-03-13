@@ -9,8 +9,8 @@
     <Grid>
         <Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="_Save" />
-                <MenuItem Header="_Save As..." />
+                <MenuItem Header="_Save" Click="SaveBtn_Click" />
+                <MenuItem Header="_Save As..." Click="SaveAsBtn_Click" />
                 <Separator />
                 <MenuItem Header="_Close" Click="CloseBtn_Click" />
             </MenuItem>
@@ -18,7 +18,7 @@
                 <MenuItem Header="_Histogram" Click="HistogramBtnClick" />
             </MenuItem>
         </Menu>
-        <Image x:Name="image" Margin="0,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Image x:Name="imageControl" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" />
 
     </Grid>
 </Window>

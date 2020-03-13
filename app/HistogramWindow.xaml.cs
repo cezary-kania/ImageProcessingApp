@@ -12,7 +12,6 @@ using System.Windows.Shapes;
 using System.Drawing;
 using System.IO;
 using Microsoft.Win32;
-
 namespace APO_v1
 {
     /// <summary>
@@ -21,100 +20,49 @@ namespace APO_v1
     
     public partial class HistogramWindow : Window
     {
-
-        private uint[][] LUT;
-        private string histogramName;
         private int histogramScaleX;
-        private EColorFormat colorFormat;
-        private Bitmap bmp;
-        public HistogramWindow(string tmpFileName, BitmapImage bitmap)
+        private Bitmap histogramBmp;
+        private Models.Image image;
+        private delegate BitmapImage PlotMaker();
+        public HistogramWindow(Models.Image image)
         {
             InitializeComponent();
-            colorFormat = CheckImgColorFormat(bitmap);
-            histogramName = string.Format("{0}_Histogram_{1}", tmpFileName, colorFormat);
-            Title = histogramName;
-            MakeLUT(bitmap);
-            /*foreach (var colorT in LUT)
-            {
-                this.Grid.Children.Add(NewHistogramBitMap(colorT));
-            }*/
-            System.Windows.Controls.Image img = NewHistogramBitMap(LUT[0]);
-            Title = img.Width.ToString();
-            img.MouseMove += (sender, e) =>
-            {
-                Title = "Color: " + (int)(e.GetPosition(img).X) / 3 + " Amount: " + LUT[0][(int)(e.GetPosition(img).X) / 3];
-            };
-            Height += img.Height;
-            Width = img.Width;
-            this.Grid.Children.Add(img);
+            this.image = image;
+            Title  = string.Format("{0}_Histogram_{1}", image.TmpfileName, image.ColorFormat);
+            ResizeMode = ResizeMode.CanMinimize;
+            histogramPlotMap = MakeMap();
+            LoadKeysToCB();
+            colorPicker.SelectedIndex = 0;
         }
-        enum EColorFormat
+        private void LoadKeysToCB()
         {
-            GrayScale,
-            RGB
+            foreach (string key in histogramPlotMap.Keys) colorPicker.Items.Add(key);
         }
-        private void MakeLUT(BitmapImage bitmap)
+        private Dictionary<string, PlotMaker> histogramPlotMap;
+        
+        private Dictionary<string, PlotMaker> MakeMap()
         {
-            if (colorFormat == EColorFormat.GrayScale) LUT = new uint[1][];
-            else LUT = new uint[3][];
-            for (int i = 0; i < LUT.Length; i++)
-                LUT[i] = CountLUT(i, bitmap);
-        }
-        private EColorFormat CheckImgColorFormat(BitmapImage bitmap)
-        {
-            int stride = bitmap.PixelWidth * 4;
-            int size = bitmap.PixelHeight * stride;
-            byte[] pixels = new byte[size];
-            bitmap.CopyPixels(pixels, stride, 0);
-
-            for (int x = 0; x < bitmap.PixelWidth; ++x)
+            Dictionary<string, PlotMaker> newhistogramPlotMap = new Dictionary<string, PlotMaker>();
+            if(image.ColorFormat == Models.Image.EColorFormat.GrayScale)
+                newhistogramPlotMap.Add("Grayscale", () => { return NewHistogramBitMap(image.LUT[0]); });
+            else if (image.ColorFormat == Models.Image.EColorFormat.RGB)
             {
-                for (int y = 0; y < bitmap.PixelHeight; y++)
-                {
-                    int index = y * stride + 4 * x;
-                    if (!(pixels[index] == pixels[index + 1] && pixels[index] == pixels[index + 2])) return EColorFormat.RGB;
-                }
+                newhistogramPlotMap.Add("Red", () => { return NewHistogramBitMap(image.LUT[0]); });
+                newhistogramPlotMap.Add("Green", () => { return NewHistogramBitMap(image.LUT[1]); });
+                newhistogramPlotMap.Add("Blue", () => { return NewHistogramBitMap(image.LUT[2]); });
             }
-            return EColorFormat.GrayScale;
-           
+            return newhistogramPlotMap;
         }
-
-        private uint[] CountLUT(int colorIndex, BitmapImage bitmap)
+        
+        private void MakePlot(string color)
         {
-            uint[] singleLUT = new uint[256];
-            for (int i = 0; i < 256; i++)
-                singleLUT[i] = 0;
-
-            int stride = bitmap.PixelWidth * 4;
-            int size = bitmap.PixelHeight * stride;
-            byte[] pixels = new byte[size];
-            bitmap.CopyPixels(pixels, stride, 0);
-
-            for (int x = 0; x < bitmap.PixelWidth; ++x)
-            {
-                for (int y = 0; y < bitmap.PixelHeight; y++)
-                {
-                    int indexN = y * stride + 4 * x;
-                    ++singleLUT[pixels[indexN + colorIndex]];
-                }
-            }
-
-            return singleLUT;
+            BitmapImage img = histogramPlotMap[color]();
+            HistPlot.Source = img;
+            HistPlot.MouseMove += (sender, e) =>
+            { histInfoLabel.Content = "Color: " + (int)(e.GetPosition(HistPlot).X) / 3 + " Amount: " + image.LUT[0][(int)(e.GetPosition(HistPlot).X) / 3]; };
+            Height = img.PixelHeight + 50;
         }
-        private byte[] GetPixels(BitmapImage bitmap)
-        {
-            int stride = bitmap.PixelWidth * 4;
-            int size = bitmap.PixelHeight * stride;
-            byte[] pixels = new byte[size];
-            bitmap.CopyPixels(pixels, stride, 0);
-            return pixels;
-        }
-
-        private void CloseBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-        private System.Windows.Controls.Image NewHistogramBitMap(uint[] singleLUT)
+        private BitmapImage NewHistogramBitMap(uint[] singleLUT)
         {
             uint max = 0;
             histogramScaleX = 2;
@@ -122,50 +70,21 @@ namespace APO_v1
             foreach (uint num in singleLUT)
                 if (num > max) max = num;
             double scale = max / ((double)bmpheight - 20);
-            int scaleX = bmpWidth / 256; 
-            bmp = new Bitmap(bmpWidth, bmpheight);
-            bmp.SetResolution(100, 100);
+            histogramBmp = new Bitmap(bmpWidth, bmpheight);
+            histogramBmp.SetResolution(100, 100);
             for (int i = 0; i < bmpWidth; i++)
             {
                 for (int j = 0; j < bmpheight; j++)
-                {
-                    bmp.SetPixel(i,j, System.Drawing.Color.White);
-                }
+                    histogramBmp.SetPixel(i,j, System.Drawing.Color.White);
             }
             for (int i = 0, z = 0; i < singleLUT.Length; i++)
             {
                     for (int j = 0; j < singleLUT[i] / scale; ++j)
-                    {
-                        bmp.SetPixel(z + i, bmpheight - j - 1, System.Drawing.Color.Black);
-                    }
+                        histogramBmp.SetPixel(z + i, bmpheight - j - 1, System.Drawing.Color.Black);
                 z += histogramScaleX;
             }
-            
-            System.Windows.Controls.Image histogram = new System.Windows.Controls.Image();
-            BitmapImage bitmapImage = BitmapToImageSource(bmp);
-            Title = bitmapImage.PixelWidth.ToString();
-            histogram.Source = BitmapToImageSource(bmp);
-            histogram.Margin = new Thickness(0,20,0,0);
-            histogram.Width = bitmapImage.PixelWidth;
-            histogram.Height = bitmapImage.PixelHeight;
-
-            return histogram;
+            return Utils.BitmapToImageSource(histogramBmp);
         }
-        private BitmapImage BitmapToImageSource(Bitmap bitmap)
-        {
-            using (MemoryStream memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Bmp);
-                memory.Position = 0;
-                BitmapImage bitmapimage = new BitmapImage();
-                bitmapimage.BeginInit();
-                bitmapimage.StreamSource = memory;
-                bitmapimage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapimage.EndInit();
-                return bitmapimage;
-            }
-        }
-
         private void SaveAsBtn_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -175,10 +94,33 @@ namespace APO_v1
                 using (FileStream stream =
                 new FileStream(saveFileDialog.FileName, FileMode.Create))
                 {
-                    bmp.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+                    histogramBmp.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
                 }
             }
                 
+        }
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+        
+        private void HistStretchingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < image.LUT.Length; i++)
+                image.LUT[i] = Models.HistogramOperations.LUTStretching(image.LUT[i]);
+            MakePlot(colorPicker.SelectedItem.ToString());
+        }
+
+        private void HistAlignmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < image.LUT.Length; i++)
+                image.LUT[i] = Models.HistogramOperations.LUTAlignment(image.LUT[i]);
+            MakePlot(colorPicker.SelectedItem.ToString());
+        }
+
+        private void colorPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MakePlot(colorPicker.SelectedItem.ToString());
         }
     }
 }

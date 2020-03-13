@@ -70,5 +70,13 @@ namespace APO_v1
                 return bitmapimage;
             }
         }
+        public static byte[] GetPixels(BitmapImage bitmap)
+        {
+            int stride = bitmap.PixelWidth * 4;
+            int size = bitmap.PixelHeight * stride;
+            byte[] pixels = new byte[size];
+            bitmap.CopyPixels(pixels, stride, 0);
+            return pixels;
+        }
     }
 }

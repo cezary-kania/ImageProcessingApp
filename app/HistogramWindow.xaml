@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:APO_v1"
         mc:Ignorable="d"
-        Title="HistogramWindow" Height="20" Width="800">
+        Title="HistogramWindow" Width="1000" Height="800">
     <Grid x:Name="Grid">
         <Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top">
             <MenuItem Header="_Histogram">
@@ -20,7 +20,13 @@
                 <MenuItem Header="_175%" />
                 <MenuItem Header="_200%" />
             </MenuItem>
+            <MenuItem Header="_Operations">
+                <MenuItem Header="_Stretching" Click="HistStretchingBtn_Click" />
+                <MenuItem Header="_Alignment" Click="HistAlignmentBtn_Click" />
+            </MenuItem>
         </Menu>
-        <Grid x:Name="HistogramGrid"></Grid>
+        <ComboBox x:Name="colorPicker" HorizontalAlignment="Center" Margin="-200,30,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="colorPicker_SelectionChanged"/>
+        <Label x:Name="histInfoLabel" Content="---" HorizontalAlignment="Center" Margin="200,30,0,0" VerticalAlignment="Top"/>
+        <Image x:Name="HistPlot" Width="768" HorizontalAlignment="Center" Margin="0,60,0,20"></Image>
     </Grid>
 </Window>
