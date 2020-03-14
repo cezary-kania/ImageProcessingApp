@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:APO_v1"
         mc:Ignorable="d"
-        Title="ImageWindow" Height="20" Closing="Window_Closing">
+        Title="ImageWindow" Height="20" Width ="700" Closing="Window_Closing">
     <Grid>
         <Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top">
             <MenuItem Header="_File">

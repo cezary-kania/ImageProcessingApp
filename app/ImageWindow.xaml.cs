@@ -31,13 +31,12 @@ namespace APO_v1
             img = new Models.Image(orginalFileName,tmpfileName);
             Title = this.tmpfileName;
             imageControl.Source = img.bitmapImg;
-            Height = img.Height;
-            Width = img.Width;
+            Height = Width * img.Height / img.Width + 45;
             Show();
         }
         public void MakeHistogram()
         {
-            HistogramWindow histogramWindow = new HistogramWindow(img);
+            HistogramWindow histogramWindow = new HistogramWindow(img,this);
             subWindows.Add(histogramWindow);
             histogramWindow.Show();
         }
@@ -78,6 +77,11 @@ namespace APO_v1
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             Utils.SaveFile(img.bitmapImg, tmpfileName);
+        }
+      
+        public void ReloadImage()
+        {
+            imageControl.Source = img.bitmapImg;
         }
     }
 }

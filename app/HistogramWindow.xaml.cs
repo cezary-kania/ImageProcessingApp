@@ -20,11 +20,12 @@ namespace APO_v1
     
     public partial class HistogramWindow : Window
     {
+        private delegate BitmapImage PlotMaker();
         private int histogramScaleX;
         private Bitmap histogramBmp;
         private Models.Image image;
-        private delegate BitmapImage PlotMaker();
-        public HistogramWindow(Models.Image image)
+        private ImageWindow parentWindow;
+        public HistogramWindow(Models.Image image, ImageWindow parentWindow)
         {
             InitializeComponent();
             this.image = image;
@@ -33,13 +34,13 @@ namespace APO_v1
             histogramPlotMap = MakeMap();
             LoadKeysToCB();
             colorPicker.SelectedIndex = 0;
+            this.parentWindow = parentWindow;
         }
         private void LoadKeysToCB()
         {
             foreach (string key in histogramPlotMap.Keys) colorPicker.Items.Add(key);
         }
         private Dictionary<string, PlotMaker> histogramPlotMap;
-        
         private Dictionary<string, PlotMaker> MakeMap()
         {
             Dictionary<string, PlotMaker> newhistogramPlotMap = new Dictionary<string, PlotMaker>();
@@ -53,7 +54,6 @@ namespace APO_v1
             }
             return newhistogramPlotMap;
         }
-        
         private void MakePlot(string color)
         {
             BitmapImage img = histogramPlotMap[color]();
@@ -72,9 +72,9 @@ namespace APO_v1
             double scale = max / ((double)bmpheight - 20);
             histogramBmp = new Bitmap(bmpWidth, bmpheight);
             histogramBmp.SetResolution(100, 100);
-            for (int i = 0; i < bmpWidth; i++)
+            for (int i = 1; i < bmpWidth - 1; i++)
             {
-                for (int j = 0; j < bmpheight; j++)
+                for (int j = 1; j < bmpheight - 1; j++)
                     histogramBmp.SetPixel(i,j, System.Drawing.Color.White);
             }
             for (int i = 0, z = 0; i < singleLUT.Length; i++)
@@ -103,21 +103,20 @@ namespace APO_v1
         {
             Close();
         }
-        
         private void HistStretchingBtn_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < image.LUT.Length; i++)
-                image.LUT[i] = Models.HistogramOperations.LUTStretching(image.LUT[i]);
+            image.HistStretching();
             MakePlot(colorPicker.SelectedItem.ToString());
+            parentWindow.ReloadImage();
         }
-
         private void HistAlignmentBtn_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < image.LUT.Length; i++)
                 image.LUT[i] = Models.HistogramOperations.LUTAlignment(image.LUT[i]);
+            image.ReloadBitmap();
             MakePlot(colorPicker.SelectedItem.ToString());
+            parentWindow.ReloadImage();
         }
-
         private void colorPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             MakePlot(colorPicker.SelectedItem.ToString());

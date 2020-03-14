@@ -101,5 +101,72 @@ namespace APO_v1.Models
             bitmapImg = Utils.BitmapToImageSource(bmp);
             return bitmapImg;
         }
+        public void RGBStretching()
+        {
+           
+            Bitmap bmp = Utils.BitmapImage2Bitmap(bitmapImg);
+            for (int k = 0; k < LUT.Length; k++)
+            {
+                uint Lmin = 0, Lmax = (uint)LUT[k].Length - 1, max, min;
+                max = Lmax; min = Lmin;
+                for (uint i = 0; i < LUT[k].Length; i++)
+                {
+                    if (min == Lmin && LUT[k][i] > 0) min = i + 1;
+                    if (max == Lmax && LUT[k][Lmax - i] > 0) max = Lmax - i - 1;
+                }
+                for (int x = 0; x < bmp.Width; x++)
+                {
+                    for (int y = 0; y < bmp.Height; y++)
+                    {
+                        byte[] colors = new byte[] {
+                            bmp.GetPixel(x,y).R,
+                            bmp.GetPixel(x,y).G,
+                            bmp.GetPixel(x,y).B,
+                        };
+                        colors[k] = CountNewColorValue(colors[k], Lmin, Lmax, min, max);
+                        bmp.SetPixel(x, y, Color.FromArgb(colors[0], colors[1], colors[2]));
+                    }
+                }
+            }
+            bitmapImg = Utils.BitmapToImageSource(bmp);
+            FindLUT(bitmapImg);
+        }
+        private void GrayScaleStretching()
+        {
+            Bitmap bmp = Utils.BitmapImage2Bitmap(bitmapImg);
+            for (int k = 0; k < LUT.Length; k++)
+            {
+                uint Lmin = 0, Lmax = (uint)LUT[k].Length - 1, max, min;
+                max = Lmax; min = Lmin;
+                for (uint i = 0; i < LUT[k].Length; i++)
+                {
+                    if (min == Lmin && LUT[k][i] > 0) min = i + 1;
+                    if (max == Lmax && LUT[k][Lmax - i] > 0) max = Lmax - i - 1;
+                }
+                for (int x = 0; x < bmp.Width; x++)
+                {
+                    for (int y = 0; y < bmp.Height; y++)
+                    {
+                       
+                        byte color = bmp.GetPixel(x, y).R;
+                        color = CountNewColorValue(color, Lmin, Lmax, min, max);
+                        bmp.SetPixel(x, y, Color.FromArgb(color, color, color));
+                    }
+                }
+            }
+            bitmapImg = Utils.BitmapToImageSource(bmp);
+            FindLUT(bitmapImg);
+        }
+        public void HistStretching()
+        {
+            if (ColorFormat.Equals(EColorFormat.GrayScale)) GrayScaleStretching();
+            else if (ColorFormat.Equals(EColorFormat.RGB)) RGBStretching();
+        }
+        private byte CountNewColorValue(int color, uint Lmin, uint Lmax, uint min, uint max)
+        {
+            if (color < min) return Convert.ToByte(Lmin);
+            if (color > max) return Convert.ToByte(Lmax);
+            return Convert.ToByte((color - min) * Lmax / (max - min));
+        }
     }
 }

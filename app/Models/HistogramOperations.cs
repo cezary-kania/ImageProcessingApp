@@ -13,38 +13,38 @@ namespace APO_v1.Models
         }
         public static uint[] LUTStretching(uint[] oldLUT)
         {
-            uint max, min, Lmin = 0, Lmax = (uint) oldLUT.Length - 1;
-            min = max = oldLUT[0];
-            for (int i = 1; i < oldLUT.Length; i++)
+            uint Lmin = 0, Lmax = (uint) oldLUT.Length - 1, 
+                 max = Lmax, min = Lmin;
+            for (uint i = 0; i < oldLUT.Length; i++)
             {
-                if (min > oldLUT[i]) min = oldLUT[i];
-                if (max < oldLUT[i]) max = oldLUT[i];
+                if (min == Lmin && oldLUT[i] > 0) min = i + 1;
+                if (max == Lmax && oldLUT[Lmax - i] > 0) max = Lmax - i - 1;
             }
             //if (max == min) return oldLUT;
             uint[] newLUT = new uint[oldLUT.Length];
             for (int i = 0; i < oldLUT.Length; i++)
             {
-                if (oldLUT[i] < min) newLUT[i] = Lmin;
-                else if (oldLUT[i] > max) newLUT[i] = Lmax;
+                if (i < min) newLUT[Lmin] += oldLUT[i];
+                else if (i > max) newLUT[Lmax] += oldLUT[i];
                 else newLUT[i] = (oldLUT[i] - min) * Lmax / (max - min);
             }
             return newLUT;
         }
         public static uint[] LUTAlignment(uint[] oldLUT)
         {
-            uint sum = 0;
+            double sum = 0;
             Array.ForEach(oldLUT, (uint i) => { sum += i; });
-            uint[] D = new uint[oldLUT.Length];
+            double[] D = new double[oldLUT.Length];
             for (int i = 1; i < D.Length; i++)
                 D[i] = D[i-1] + oldLUT[i];
-            uint firstNonZero = 0;
+            double firstNonZero = 0;
             for (int i = 0; i < D.Length; i++) {
                 D[i] /= sum;
                 if (firstNonZero == 0 && D[i] > 0) firstNonZero = D[i];
             }
             uint[] newLUT = new uint[oldLUT.Length];
             for (int i = 0; i < newLUT.Length; i++)
-                newLUT[i] = ((D[i] - firstNonZero) / (1 - firstNonZero)) * ((uint)oldLUT.Length - 1);
+                newLUT[i] = (uint) ((D[i] - firstNonZero) / (1 - firstNonZero)) * ((uint)oldLUT.Length - 1);
             return newLUT;
         }
     }
