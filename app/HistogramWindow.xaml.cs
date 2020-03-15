@@ -21,15 +21,19 @@ namespace APO_v1
     public partial class HistogramWindow : Window
     {
         private delegate BitmapImage PlotMaker();
-        private int histogramScaleX;
+        private int histogramScaleX = 3;
+        private double zoom = 1;
+        private string histogramName;
         private Bitmap histogramBmp;
+        private int histogramMaxValue;
         private Models.Image image;
         private ImageWindow parentWindow;
+        private Dictionary<string, PlotMaker> histogramPlotMap;
         public HistogramWindow(Models.Image image, ImageWindow parentWindow)
         {
             InitializeComponent();
             this.image = image;
-            Title  = string.Format("{0}_Histogram_{1}", image.TmpfileName, image.ColorFormat);
+            Title  = histogramName = string.Format("{0}_Histogram_{1}.bmp", image.TmpfileName.Split('.')[0], image.ColorFormat);
             ResizeMode = ResizeMode.CanMinimize;
             histogramPlotMap = MakeMap();
             LoadKeysToCB();
@@ -40,7 +44,6 @@ namespace APO_v1
         {
             foreach (string key in histogramPlotMap.Keys) colorPicker.Items.Add(key);
         }
-        private Dictionary<string, PlotMaker> histogramPlotMap;
         private Dictionary<string, PlotMaker> MakeMap()
         {
             Dictionary<string, PlotMaker> newhistogramPlotMap = new Dictionary<string, PlotMaker>();
@@ -59,29 +62,39 @@ namespace APO_v1
             BitmapImage img = histogramPlotMap[color]();
             HistPlot.Source = img;
             HistPlot.MouseMove += (sender, e) =>
-            { histInfoLabel.Content = "Color: " + (int)(e.GetPosition(HistPlot).X) / 3 + " Amount: " + image.LUT[0][(int)(e.GetPosition(HistPlot).X) / 3]; };
-            Height = img.PixelHeight + 50;
+            {
+                int colorIndex = colorPicker.SelectedIndex;
+                histInfoLabel.Content = "Color: " + (int)(e.GetPosition(HistPlot).X + 1) / 3 + " Amount: " + image.LUT[colorIndex][(int)(e.GetPosition(HistPlot).X + 1) / 3]; 
+            };
+            LabelmaxValue.Content = (zoom == 1) ? histogramMaxValue + " - " : "";
+            LabelminColor.Content = 0;
+            LabelmaxColor.Content = image.LUT[0].Length - 1;
         }
         private BitmapImage NewHistogramBitMap(uint[] singleLUT)
         {
+            int bmpWidth = (int) HistPlot.Width, bmpheight = (int) HistPlot.Height;
             uint max = 0;
-            histogramScaleX = 2;
-            int bmpWidth = singleLUT.Length* (histogramScaleX + 1), bmpheight = 700;
             foreach (uint num in singleLUT)
                 if (num > max) max = num;
-            double scale = max / ((double)bmpheight - 20);
+            double Yscale;
+            if (zoom == 1)
+                Yscale = max / ((double)bmpheight - 50);
+            else
+                Yscale = (max / zoom) / ((double)bmpheight);
             histogramBmp = new Bitmap(bmpWidth, bmpheight);
-            histogramBmp.SetResolution(100, 100);
+            histogramMaxValue = (int) max;
             for (int i = 1; i < bmpWidth - 1; i++)
             {
                 for (int j = 1; j < bmpheight - 1; j++)
-                    histogramBmp.SetPixel(i,j, System.Drawing.Color.White);
+                    histogramBmp.SetPixel(i, j, System.Drawing.Color.White);
             }
             for (int i = 0, z = 0; i < singleLUT.Length; i++)
             {
-                    for (int j = 0; j < singleLUT[i] / scale; ++j)
-                        histogramBmp.SetPixel(z + i, bmpheight - j - 1, System.Drawing.Color.Black);
-                z += histogramScaleX;
+                for (int j = 0; j < singleLUT[i] / Yscale; ++j)
+                    histogramBmp.SetPixel(z + i, Math.Max(bmpheight - j - 1, 0), System.Drawing.Color.Black);
+                if(singleLUT[i] / Yscale < 10 && singleLUT[i] > 0)
+                    histogramBmp.SetPixel(z + i, bmpheight - 2, System.Drawing.Color.Black);
+                z += histogramScaleX - 1;
             }
             return Utils.BitmapToImageSource(histogramBmp);
         }
@@ -89,6 +102,7 @@ namespace APO_v1
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Bmp file (*.bmp)|*.bmp";
+            saveFileDialog.FileName = histogramName;
             if (saveFileDialog.ShowDialog() == true)
             {
                 using (FileStream stream =
@@ -119,6 +133,14 @@ namespace APO_v1
         }
         private void colorPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            MakePlot(colorPicker.SelectedItem.ToString());
+        }
+        private void ZoomBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem item = (MenuItem)e.Source;
+            zoom = Convert.ToDouble(item.Header.ToString().Replace("%","").Replace("_", "")) / 100.0;
+            foreach (MenuItem menuItem in zoomCtrl.Items) menuItem.IsChecked = false;
+            item.IsChecked = true;
             MakePlot(colorPicker.SelectedItem.ToString());
         }
     }

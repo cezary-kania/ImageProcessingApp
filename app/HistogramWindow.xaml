@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:APO_v1"
         mc:Ignorable="d"
-        Title="HistogramWindow" Width="1000" Height="800">
+        Title="HistogramWindow" Width="1000" Height="850">
     <Grid x:Name="Grid">
         <Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top">
             <MenuItem Header="_Histogram">
@@ -13,12 +13,12 @@
                 <Separator />
                 <MenuItem Header="_Close" Click="CloseBtn_Click" />
             </MenuItem>
-            <MenuItem Header="_Zoom">
-                <MenuItem Header="_100%" />
-                <MenuItem Header="_125%" />
-                <MenuItem Header="_150%" />
-                <MenuItem Header="_175%" />
-                <MenuItem Header="_200%" />
+            <MenuItem Name="zoomCtrl" Header="_Zoom">
+                <MenuItem Header="_100%" Click="ZoomBtn_Click" IsChecked="True"/>
+                <MenuItem Header="_150%" Click="ZoomBtn_Click" />
+                <MenuItem Header="_200%" Click="ZoomBtn_Click" />
+                <MenuItem Header="_300%" Click="ZoomBtn_Click" />
+                <MenuItem Header="_400%" Click="ZoomBtn_Click" />
             </MenuItem>
             <MenuItem Header="_Operations">
                 <MenuItem Header="_Stretching" Click="HistStretchingBtn_Click" />
@@ -27,6 +27,9 @@
         </Menu>
         <ComboBox x:Name="colorPicker" HorizontalAlignment="Center" Margin="-200,30,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="colorPicker_SelectionChanged"/>
         <Label x:Name="histInfoLabel" Content="---" HorizontalAlignment="Center" Margin="200,30,0,0" VerticalAlignment="Top"/>
-        <Image x:Name="HistPlot" Width="768" HorizontalAlignment="Center" Margin="0,60,0,20"></Image>
+        <Image x:Name="HistPlot" Width="768" Height="700" Margin="0,60,0,10"></Image>
+        <Label x:Name="LabelminColor" Content="xxx" HorizontalAlignment="Left" Margin="100,780,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LabelmaxColor" Content="xxx" HorizontalAlignment="Left" Margin="860,780,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="LabelmaxValue" Content="xxxx -" HorizontalAlignment="Left" Margin="40,110,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>
