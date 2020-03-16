@@ -9,6 +9,8 @@ namespace APO_v1.Models
     public class Image
     {
         public uint[][] LUT { get; set; }
+        private uint[][] ColorRedirect;
+        private int colorsNum;
         public enum EColorFormat
         {
             GrayScale,
@@ -27,6 +29,17 @@ namespace APO_v1.Models
             bitmapImg = PrepareBMPIMG(orginalFileName);
             ColorFormat = CheckImgColorFormat(bitmapImg);
             FindLUT(bitmapImg);
+            ResetColorRedirection();
+        }
+        private void ResetColorRedirection()
+        {
+            if (ColorFormat.Equals(EColorFormat.GrayScale))
+                ColorRedirect = new uint[][] { new uint[256] };
+            else
+                ColorRedirect = new uint[][] { new uint[256], new uint[256], new uint[256], };
+            for (int i = 0; i < colorsNum; i++)
+                for (int j = 0; j < ColorRedirect[i].Length; j++)
+                    ColorRedirect[i][j] = (uint)j;
         }
         private BitmapImage PrepareBMPIMG(string orginalFileName)
         {
@@ -39,10 +52,25 @@ namespace APO_v1.Models
         }
         private void FindLUT(BitmapImage bitmap)
         {
-            if (ColorFormat == EColorFormat.GrayScale) LUT = new uint[1][];
-            else LUT = new uint[3][];
+            if (ColorFormat == EColorFormat.GrayScale)
+            {
+                colorsNum = 1;
+                LUT = new uint[1][];
+            }
+
+            else {
+                LUT = new uint[4][];
+                colorsNum = 3;
+            }
+            
             for (int i = 0; i < LUT.Length; i++)
                 LUT[i] = CountLUT(i, bitmap);
+
+            if(ColorFormat == EColorFormat.RGB)
+            {
+                LUT[3] = new uint[LUT[0].Length];
+                ReloadCulumatedHistIfExists();
+            }
         }
         private EColorFormat CheckImgColorFormat(BitmapImage bitmap)
         {
@@ -94,7 +122,10 @@ namespace APO_v1.Models
                 for (int j = 0; j < Height; j++)
                 {
                     int index = j * stride + 4 * i;
-                    Color color = Color.FromArgb((int)LUT[0][pixels[index]], (int)LUT[1][pixels[index + 1]], (int)LUT[2][pixels[index + 2]]);
+                    Color color;
+                    if(ColorFormat.Equals(EColorFormat.RGB))
+                        color = Color.FromArgb((int)ColorRedirect[0][pixels[index]], (int)ColorRedirect[1][pixels[index + 1]], (int)ColorRedirect[2][pixels[index + 2]]);
+                    else color = Color.FromArgb((int)ColorRedirect[0][pixels[index]], (int)ColorRedirect[0][pixels[index + 1]], (int)ColorRedirect[0][pixels[index + 2]]);
                     bmp.SetPixel(i, j, color);
                 }
             }
@@ -105,7 +136,7 @@ namespace APO_v1.Models
         {
            
             Bitmap bmp = Utils.BitmapImage2Bitmap(bitmapImg);
-            for (int k = 0; k < LUT.Length; k++)
+            for (int k = 0; k < colorsNum; k++)
             {
                 uint Lmin = 0, Lmax = (uint)LUT[k].Length - 1, max, min;
                 max = Lmax; min = Lmin;
@@ -134,7 +165,7 @@ namespace APO_v1.Models
         private void GrayScaleStretching()
         {
             Bitmap bmp = Utils.BitmapImage2Bitmap(bitmapImg);
-            for (int k = 0; k < LUT.Length; k++)
+            for (int k = 0; k < colorsNum; k++)
             {
                 uint Lmin = 0, Lmax = (uint)LUT[k].Length - 1, max, min;
                 max = Lmax; min = Lmin;
@@ -157,11 +188,31 @@ namespace APO_v1.Models
             bitmapImg = Utils.BitmapToImageSource(bmp);
             FindLUT(bitmapImg);
         }
+        //*/
+        public void HistStretching()
+        {
+            for (int i = 0; i < colorsNum; i++)
+            {
+                LUT[i] = HistogramOperations.LUTStretching(LUT[i]).Item1;
+                ColorRedirect[i] = HistogramOperations.LUTStretching(LUT[i]).Item2;
+            }
+            ReloadCulumatedHistIfExists();
+            ReloadBitmap();
+            ResetColorRedirection();
+        }
+        private void ReloadCulumatedHistIfExists()
+        {
+            if(colorsNum == 3)
+                for (int i = 0; i < LUT[3].Length; i++)
+                    LUT[3][i] = LUT[0][i] + LUT[1][i] + LUT[2][i];
+        }
+        /*/
         public void HistStretching()
         {
             if (ColorFormat.Equals(EColorFormat.GrayScale)) GrayScaleStretching();
             else if (ColorFormat.Equals(EColorFormat.RGB)) RGBStretching();
         }
+        //*/
         private byte CountNewColorValue(int color, uint Lmin, uint Lmax, uint min, uint max)
         {
             if (color < min) return Convert.ToByte(Lmin);

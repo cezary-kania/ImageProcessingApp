@@ -23,4 +23,8 @@ F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Release\netcoreapp3.0\APO
 F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Release\netcoreapp3.0\APO_v1.AssemblyInfo.cs
 F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Release\netcoreapp3.0\APO_v1.csproj.CopyComplete
 F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Release\netcoreapp3.0\APO_v1.dll
-F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Release\netcoreapp3.0\APO_v1.pdb
+F:\Desktop\netcoreapp3.0\APO_v1.exe
+F:\Desktop\netcoreapp3.0\APO_v1.deps.json
+F:\Desktop\netcoreapp3.0\APO_v1.runtimeconfig.json
+F:\Desktop\netcoreapp3.0\APO_v1.runtimeconfig.dev.json
+F:\Desktop\netcoreapp3.0\APO_v1.dll

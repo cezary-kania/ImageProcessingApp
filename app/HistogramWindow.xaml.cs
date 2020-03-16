@@ -54,6 +54,7 @@ namespace APO_v1
                 newhistogramPlotMap.Add("Red", () => { return NewHistogramBitMap(image.LUT[0]); });
                 newhistogramPlotMap.Add("Green", () => { return NewHistogramBitMap(image.LUT[1]); });
                 newhistogramPlotMap.Add("Blue", () => { return NewHistogramBitMap(image.LUT[2]); });
+                newhistogramPlotMap.Add("Cumulated", () => { return NewHistogramBitMap(image.LUT[3]); });
             }
             return newhistogramPlotMap;
         }
@@ -119,6 +120,7 @@ namespace APO_v1
         }
         private void HistStretchingBtn_Click(object sender, RoutedEventArgs e)
         {
+            image.HistStretching();
             image.HistStretching();
             MakePlot(colorPicker.SelectedItem.ToString());
             parentWindow.ReloadImage();
