@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_0
 F:\Documents\CSharpProjects\ImageProcessingApp\app\App.xaml
-3-2046517560
+6361780774
 
-7-317947219
+10-1791341686
 1932093190410
-HistogramWindow.xaml;ImageWindow.xaml;MainWindow.xaml;
+HistogramWindow.xaml;ImageWindow.xaml;LuminanceLvlRedWindow.xaml;LumRangeStrWindow.xaml;MainWindow.xaml;ThresholdingWindow.xaml;
 
 False
 

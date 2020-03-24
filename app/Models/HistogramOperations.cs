@@ -45,9 +45,11 @@ namespace APO_v1.Models
             }
             return Tuple.Create(newLUT, redirection);
         }
-        public static uint[] LUTAlignment(uint[] oldLUT)
+       
+        public static Tuple<uint[], uint[]> LUTAlignment(uint[] oldLUT)
         {
             double sum = 0;
+            uint[] redirection = new uint[oldLUT.Length];
             Array.ForEach(oldLUT, (uint i) => { sum += i; });
             double[] D = new double[oldLUT.Length];
             D[0] = oldLUT[0];
@@ -61,8 +63,12 @@ namespace APO_v1.Models
             //MessageBox.Show($"{sum}, {firstNonZero}, {D[255]}", "My App");
             uint[] newLUT = new uint[oldLUT.Length];
             for (int i = 0; i < newLUT.Length; i++)
-                newLUT[i] = (uint) Math.Round(((D[i] - firstNonZero) / (1 - firstNonZero)) * ((uint)oldLUT.Length - 1));
-            return newLUT;
+            {
+                uint newValue = (uint)Math.Round((D[i] - firstNonZero) / (1.0 - firstNonZero) * (oldLUT.Length - 1));
+                newLUT[i] = newValue;
+                redirection[newValue] = (uint) i;
+            }
+            return Tuple.Create(newLUT, redirection);
         }
     }
 }

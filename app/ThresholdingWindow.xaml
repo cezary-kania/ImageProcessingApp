@@ -1,0 +1,23 @@
+﻿<Window x:Class="APO_v1.ThresholdingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:APO_v1"
+        mc:Ignorable="d"
+        Title="Thresholding" Height="176" Width="358" ResizeMode="CanMinimize" Closing="Window_Closing">
+    <Grid Margin="0,0,0,1">
+        <CheckBox x:Name="CB_2" Content="Progowanie z zachowaniem poziomów szarości" HorizontalAlignment="Left" Margin="32,82,0,0" VerticalAlignment="Top" Checked="CB_2_Checked"/>
+        <Button x:Name="ApplyBtn" Content="Apply" HorizontalAlignment="Left" Margin="274,103,0,0" VerticalAlignment="Top" Width="54" Click="ApplyBtn_Click" Height="24"/>
+        <Slider x:Name="p1_slider" HorizontalAlignment="Left" Margin="57,14,0,0" VerticalAlignment="Top" Width="176" ValueChanged="p1_slider_ValueChanged" IsSnapToTickEnabled="True"
+    TickFrequency="1"/>
+        <TextBox x:Name="p1_TB" HorizontalAlignment="Left" Margin="250,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" LostFocus="p1_TB_LostFocus"/>
+        <Label x:Name="p1_label" Content="p1" HorizontalAlignment="Left" Margin="26,6,0,0" VerticalAlignment="Top"/>
+
+        <Slider x:Name="p2_slider" HorizontalAlignment="Left" Margin="57,50,0,0" VerticalAlignment="Top" Width="176" IsEnabled="False" IsSnapToTickEnabled="True"
+    TickFrequency="1" ValueChanged="p2_slider_ValueChanged"/>
+        <TextBox x:Name="p2_TB" HorizontalAlignment="Left" Margin="250,50,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" IsEnabled="False" LostFocus="p2_TB_LostFocus"/>
+        <Label x:Name="p2_label" Content="p2" HorizontalAlignment="Left" Margin="26,42,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+        <CheckBox x:Name="p2_CB" Content="" HorizontalAlignment="Left" Margin="8,51,0,0" VerticalAlignment="Top" Checked="p2_CB_Checked" Unchecked="p2_CB_Unchecked"/>
+    </Grid>
+</Window>

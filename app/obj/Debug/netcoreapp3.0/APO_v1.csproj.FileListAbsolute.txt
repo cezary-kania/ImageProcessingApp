@@ -48,3 +48,11 @@ F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\MainW
 F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\HistogramWindow.baml
 F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\ImageWindow.baml
 F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\MainWindow.baml
+F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\APO_v1.csproj.CoreCompileInputs.cache
+F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\APO_v1.genruntimeconfig.cache
+F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\ThresholdingWindow.g.cs
+F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\ThresholdingWindow.baml
+F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\LuminanceLvlRedWindow.g.cs
+F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\LuminanceLvlRedWindow.baml
+F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\LumRangeStrWindow.g.cs
+F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\LumRangeStrWindow.baml

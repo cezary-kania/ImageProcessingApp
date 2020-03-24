@@ -35,10 +35,12 @@ namespace APO_v1
             this.image = image;
             Title  = histogramName = string.Format("{0}_Histogram_{1}.bmp", image.TmpfileName.Split('.')[0], image.ColorFormat);
             ResizeMode = ResizeMode.CanMinimize;
+            parentWindow.FindLUT();
             histogramPlotMap = MakeMap();
             LoadKeysToCB();
             colorPicker.SelectedIndex = 0;
             this.parentWindow = parentWindow;
+            
         }
         private void LoadKeysToCB()
         {
@@ -127,9 +129,7 @@ namespace APO_v1
         }
         private void HistAlignmentBtn_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < image.LUT.Length; i++)
-                image.LUT[i] = Models.HistogramOperations.LUTAlignment(image.LUT[i]);
-            image.ReloadBitmap();
+            image.HistAligment();
             MakePlot(colorPicker.SelectedItem.ToString());
             parentWindow.ReloadImage();
         }
@@ -143,6 +143,10 @@ namespace APO_v1
             zoom = Convert.ToDouble(item.Header.ToString().Replace("%","").Replace("_", "")) / 100.0;
             foreach (MenuItem menuItem in zoomCtrl.Items) menuItem.IsChecked = false;
             item.IsChecked = true;
+            MakePlot(colorPicker.SelectedItem.ToString());
+        }
+        public void ReloadHistogram()
+        {
             MakePlot(colorPicker.SelectedItem.ToString());
         }
     }

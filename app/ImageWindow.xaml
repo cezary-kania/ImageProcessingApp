@@ -17,6 +17,12 @@
             <MenuItem Header="_Tools">
                 <MenuItem Header="_Histogram" Click="HistogramBtnClick" />
             </MenuItem>
+            <MenuItem Header="_Operations">
+                <MenuItem Header="_Negation" Click="NegationBtn_Click" />
+                <MenuItem Header="_Thresholding" Click="ThresholdingBtn_Click" />
+                <MenuItem Header="_Luminance level Reduction" Click="LumLvlRed" />
+                <MenuItem Header="_Luminance range streching" Click="LuminanceRangeStr_Click" />
+            </MenuItem>
         </Menu>
         <Image x:Name="imageControl" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" />
 

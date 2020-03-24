@@ -18,10 +18,11 @@ namespace APO_v1
     public partial class ImageWindow : Window
     {
         private MainWindow mainWindow;
+        private HistogramWindow histogramWindow;
         private List<Window> subWindows = new List<Window>();
         public string orginalFileName { get; private set; }
         public string tmpfileName { get; private set; }
-        private Models.Image img; 
+        private Models.Image img;
         public ImageWindow(string orginalFileName, string tmpfileName, MainWindow mainWindow)
         {
             InitializeComponent();
@@ -36,16 +37,14 @@ namespace APO_v1
         }
         public void MakeHistogram()
         {
-            HistogramWindow histogramWindow = new HistogramWindow(img,this);
+            histogramWindow = new HistogramWindow(img,this);
             subWindows.Add(histogramWindow);
             histogramWindow.Show();
         }
-
         private void HistogramBtnClick(object sender, RoutedEventArgs e)
         {
             MakeHistogram();
         }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             CloseAllWindows();
@@ -55,7 +54,6 @@ namespace APO_v1
         {
             foreach (Window window in subWindows) window.Close();
         }
-
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
             CloseAllWindows();
@@ -68,20 +66,80 @@ namespace APO_v1
             else
                 Utils.SaveFileAs(img.bitmapImg, tmpfileName);
         }
-
         private void SaveAsBtn_Click(object sender, RoutedEventArgs e)
         {
             Utils.SaveFileAs(img.bitmapImg, tmpfileName);
         }
-
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
             Utils.SaveFile(img.bitmapImg, tmpfileName);
         }
-      
         public void ReloadImage()
         {
             imageControl.Source = img.bitmapImg;
+        }
+        private void NegationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            img.ImageNegation();
+            ReloadImage();
+            if(histogramWindow != null)
+                histogramWindow.ReloadHistogram();
+        }
+        private void ThresholdingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            ThresholdingWindow thWindow = new ThresholdingWindow(this);
+            subWindows.Add(thWindow);
+            thWindow.Show();
+        }
+        public int GetMaximumLuminance()
+        {
+            return img.LUT[0].Length - 1;
+        }
+        public void ApplyBitmapChange()
+        {
+            img.imgCopy = null;
+        }
+        public void RestoreCopyIfExist()
+        {
+            img.RestoreCopyIfExists();
+        }
+        public void OnePBinaryThresholing(int p1)
+        {
+            img.OnePBinaryThresholing(p1);
+            ReloadImage();
+        }
+        public void OnePBinaryThresholingWithKeepingL(int p1)
+        {
+            img.OnePBinaryThresholingWithKeepingL(p1);
+            ReloadImage();
+        }
+        public void TwoPBinaryThresholing(int p1, int p2)
+        {
+            img.TwoPBinaryThresholing(p1, p2);
+            ReloadImage();
+        }
+        public void TwoPBinaryThresholingWithKeepingL(int p1, int p2)
+        {
+            img.TwoPBinaryThresholingWithKeepingL(p1, p2);
+            ReloadImage();
+        }    
+        public void FindLUT()
+        {
+            img.FindLUT();
+        }
+        private void LumLvlRed(object sender, RoutedEventArgs e)
+        {
+
+            LuminanceLvlRedWindow redWindow = new LuminanceLvlRedWindow(img, this);
+            subWindows.Add(redWindow);
+            redWindow.Show();
+        }
+
+        private void LuminanceRangeStr_Click(object sender, RoutedEventArgs e)
+        {
+            LumRangeStrWindow strWindow = new LumRangeStrWindow(img, this);
+            subWindows.Add(strWindow);
+            strWindow.Show();
         }
     }
 }
