@@ -1,2 +1,2 @@
 # ImageProcessingApp
-Application created for academic purposes
+Application created on academic purposes
