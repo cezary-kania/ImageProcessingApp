@@ -56,3 +56,5 @@ F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\Lumin
 F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\LuminanceLvlRedWindow.baml
 F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\LumRangeStrWindow.g.cs
 F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\LumRangeStrWindow.baml
+F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\TAPointOperationsWindow.g.cs
+F:\Documents\CSharpProjects\ImageProcessingApp\app\obj\Debug\netcoreapp3.0\TAPointOperationsWindow.baml

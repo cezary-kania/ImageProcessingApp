@@ -23,6 +23,7 @@
             <MenuItem Header="_Operations">
                 <MenuItem Header="_Stretching" Click="HistStretchingBtn_Click" />
                 <MenuItem Header="_Alignment" Click="HistAlignmentBtn_Click" />
+                <MenuItem Header="_Equalization" Click="HistEqualizationBtn_Click" />
             </MenuItem>
         </Menu>
         <ComboBox x:Name="colorPicker" HorizontalAlignment="Center" Margin="-200,30,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="colorPicker_SelectionChanged"/>

@@ -30,10 +30,6 @@ namespace APO_v1
             img.RestoreCopyIfExists();
             Close();
         }
-        private void LevelsTB_TextChanged(object sender, TextChangedEventArgs e)
-        {
-           
-        }
         private void ApplyBtn_Click(object sender, RoutedEventArgs e)
         {
             uint levels;
@@ -41,11 +37,15 @@ namespace APO_v1
             {
                 levels = Math.Min(levels, (uint)img.LUT[0].Length);
                 LevelsTB.Text = levels.ToString();
-                img.LuminanceLevelReduction((int)levels);
+                img.Posterize((int)levels);
             }
             else return;
             parentWindow.ReloadImage();
-            //img.RemoveCopyIfExists();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            img.RemoveCopyIfExists();
         }
     }
 }

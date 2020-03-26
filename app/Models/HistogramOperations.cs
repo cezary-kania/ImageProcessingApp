@@ -7,10 +7,19 @@ namespace APO_v1.Models
 {
     public static class HistogramOperations
     {
-        public static uint[] LUTEqualization(uint[] oldLUT)
+        public static uint[] Equalization(Image img, int k)
         {
-            throw new Exception("Method not implemented yet.");
-            //return null;
+            uint[] oldLUT = img.LUT[k];
+            uint[] redirection = new uint[oldLUT.Length];
+            double[] D = new double[oldLUT.Length];
+            double sum = img.Width * img.Height;
+            for (int i = 0; i < D.Length; i++)
+                D[i] = Convert.ToDouble(oldLUT[i]) / sum;
+            for (int i = 1; i < D.Length; i++)
+                D[i] = D[i - 1] + D[i];
+            for (int i = 0; i < oldLUT.Length; i++)
+                redirection[i] = (uint)(D[i] * (oldLUT.Length - 1));
+            return redirection;
         }
         public static Tuple<uint[], uint[]> LUTStretching(uint[] oldLUT)
         {
@@ -45,30 +54,23 @@ namespace APO_v1.Models
             }
             return Tuple.Create(newLUT, redirection);
         }
-       
-        public static Tuple<uint[], uint[]> LUTAlignment(uint[] oldLUT)
+        public static uint[] HistAlignment(Image img, int k) // k - numer barwy z RGB
         {
-            double sum = 0;
+            uint[] oldLUT = img.LUT[k];
             uint[] redirection = new uint[oldLUT.Length];
-            Array.ForEach(oldLUT, (uint i) => { sum += i; });
             double[] D = new double[oldLUT.Length];
             D[0] = oldLUT[0];
             for (int i = 1; i < D.Length; i++)
-                D[i] = D[i-1] + oldLUT[i];
-            double firstNonZero = 0;
-            for (int i = 0; i < D.Length; i++) {
+                D[i] = D[i - 1] + oldLUT[i];
+            double firstNonZero = 0, sum = img.Width * img.Height;
+            for (int i = 0; i < D.Length; i++)
+            {
                 D[i] /= sum;
                 if (firstNonZero == 0 && D[i] != 0) firstNonZero = D[i];
             }
-            //MessageBox.Show($"{sum}, {firstNonZero}, {D[255]}", "My App");
-            uint[] newLUT = new uint[oldLUT.Length];
-            for (int i = 0; i < newLUT.Length; i++)
-            {
-                uint newValue = (uint)Math.Round((D[i] - firstNonZero) / (1.0 - firstNonZero) * (oldLUT.Length - 1));
-                newLUT[i] = newValue;
-                redirection[newValue] = (uint) i;
-            }
-            return Tuple.Create(newLUT, redirection);
+            for (int i = 0; i < oldLUT.Length; i++)
+                redirection[i] = (uint)Math.Round((D[i] - firstNonZero) / (1.0 - firstNonZero) * (oldLUT.Length - 1));
+            return redirection;
         }
     }
 }

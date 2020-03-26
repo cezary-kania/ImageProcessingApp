@@ -22,7 +22,7 @@ namespace APO_v1
         private List<Window> subWindows = new List<Window>();
         public string orginalFileName { get; private set; }
         public string tmpfileName { get; private set; }
-        private Models.Image img;
+        public Models.Image img { get; private set; }
         public ImageWindow(string orginalFileName, string tmpfileName, MainWindow mainWindow)
         {
             InitializeComponent();
@@ -35,10 +35,23 @@ namespace APO_v1
             Height = Width * img.Height / img.Width + 45;
             Show();
         }
+        public ImageWindow(MainWindow mainWindow, Models.Image img)
+        {
+            InitializeComponent();
+            this.mainWindow = mainWindow;
+            this.img = img;
+            orginalFileName = img.OrginalFileName;
+            tmpfileName = img.TmpfileName;
+            Title = tmpfileName;
+            imageControl.Source = img.bitmapImg;
+            Height = Width * img.Height / img.Width + 45;
+            Show();
+        }
         public void MakeHistogram()
         {
             histogramWindow = new HistogramWindow(img,this);
             subWindows.Add(histogramWindow);
+            histogramWindow.Owner = Window.GetWindow(this);
             histogramWindow.Show();
         }
         private void HistogramBtnClick(object sender, RoutedEventArgs e)
@@ -113,28 +126,16 @@ namespace APO_v1
             img.OnePBinaryThresholingWithKeepingL(p1);
             ReloadImage();
         }
-        public void TwoPBinaryThresholing(int p1, int p2)
-        {
-            img.TwoPBinaryThresholing(p1, p2);
-            ReloadImage();
-        }
-        public void TwoPBinaryThresholingWithKeepingL(int p1, int p2)
-        {
-            img.TwoPBinaryThresholingWithKeepingL(p1, p2);
-            ReloadImage();
-        }    
         public void FindLUT()
         {
             img.FindLUT();
         }
         private void LumLvlRed(object sender, RoutedEventArgs e)
         {
-
             LuminanceLvlRedWindow redWindow = new LuminanceLvlRedWindow(img, this);
             subWindows.Add(redWindow);
             redWindow.Show();
         }
-
         private void LuminanceRangeStr_Click(object sender, RoutedEventArgs e)
         {
             LumRangeStrWindow strWindow = new LumRangeStrWindow(img, this);

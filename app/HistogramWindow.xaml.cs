@@ -86,6 +86,16 @@ namespace APO_v1
                 Yscale = (max / zoom) / ((double)bmpheight);
             histogramBmp = new Bitmap(bmpWidth, bmpheight);
             histogramMaxValue = (int) max;
+            for (int i = 0; i < bmpWidth; i++)
+            {
+                histogramBmp.SetPixel(i, 0, System.Drawing.Color.Blue);
+                histogramBmp.SetPixel(i, bmpheight - 1, System.Drawing.Color.Blue);
+            }
+            for (int i = 0; i < bmpheight; i++)
+            {
+                histogramBmp.SetPixel(0, i, System.Drawing.Color.Blue);
+                histogramBmp.SetPixel(bmpWidth - 1, i, System.Drawing.Color.Blue);
+            }
             for (int i = 1; i < bmpWidth - 1; i++)
             {
                 for (int j = 1; j < bmpheight - 1; j++)
@@ -148,6 +158,12 @@ namespace APO_v1
         public void ReloadHistogram()
         {
             MakePlot(colorPicker.SelectedItem.ToString());
+        }
+        private void HistEqualizationBtn_Click(object sender, RoutedEventArgs e)
+        {
+            image.HistEqualization();
+            MakePlot(colorPicker.SelectedItem.ToString());
+            parentWindow.ReloadImage();
         }
     }
 }

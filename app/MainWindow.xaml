@@ -5,19 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:APO_v1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Closing="Window_Closing">
+        Title="MainWindow" Height="800" Width="1200" Closing="Window_Closing">
     <Grid>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <!--<MenuItem Header="_New" />-->
                 <MenuItem Header="_Open" Click="OpenBtn_Click" />
                 <MenuItem x:Name="SaveBtn" Header="_Save"  IsEnabled="False"/>
-                <Separator />
-                <MenuItem Header="_Exit" Click="Exit_Click" />
             </MenuItem>
-            <MenuItem x:Name="Lab1MenuI" Header="_Lab1" IsEnabled="False">
+            <MenuItem x:Name="ImageMI" Header="_Image" IsEnabled="False">
                 <MenuItem x:Name="HistogramBtn" Header="_Histogram"/>
             </MenuItem>
+            <MenuItem x:Name="PointOperations" Header="_Point operations" IsEnabled="False" Click="PointOperations_Click" />
         </Menu>
     </Grid>
 </Window>
