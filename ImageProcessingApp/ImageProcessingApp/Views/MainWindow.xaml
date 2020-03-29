@@ -1,0 +1,23 @@
+﻿<Window x:Class="ImageProcessingApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageProcessingApp"
+        mc:Ignorable="d"
+        Title="Image Processing App" Height="800" Width="1200"
+        WindowState="Maximized">
+    <Grid>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <!--<MenuItem Header="_New" />-->
+                <MenuItem Header="_Open" Click="OpenBtn_Click" />
+                <MenuItem x:Name="SaveBtn" Header="_Save"  IsEnabled="False"/>
+            </MenuItem>
+            <MenuItem x:Name="ImageMI" Header="_Image" IsEnabled="False">
+                <MenuItem x:Name="HistogramBtn" Header="_Histogram"/>
+                <MenuItem x:Name="PointOperations" Header="_Point operations" IsEnabled="False" Click="PointOperations_Click" />
+            </MenuItem>
+        </Menu>
+    </Grid>
+</Window>

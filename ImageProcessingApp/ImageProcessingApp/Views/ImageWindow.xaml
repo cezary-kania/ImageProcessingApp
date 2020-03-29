@@ -1,0 +1,29 @@
+﻿<Window x:Class="ImageProcessingApp.Views.ImageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageProcessingApp.Views"
+        mc:Ignorable="d"
+        Title="ImageWindow" Height="20" Width ="700" Closing="Window_Closing">
+    <Grid>
+        <Menu DockPanel.Dock="Top" Height="20" VerticalAlignment="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Save" Click="SaveBtn_Click" />
+                <MenuItem Header="_Save As..." Click="SaveAsBtn_Click" />
+                <Separator />
+                <MenuItem Header="_Close" Click="CloseBtn_Click" />
+            </MenuItem>
+            <MenuItem Header="_Tools">
+                <MenuItem Header="_Histogram" Click="HistogramBtnClick" />
+            </MenuItem>
+            <MenuItem Header="_Operations">
+                <MenuItem Header="_Negation" Click="NegationBtn_Click" />
+                <MenuItem Header="_Thresholding" Click="ThresholdingBtn_Click" />
+                <MenuItem Header="_Posterize" Click="PosterizeBtn_Click" />
+                <MenuItem Header="_Luminance range streching" Click="LumRangeStr_Click" />
+            </MenuItem>
+        </Menu>
+        <Image x:Name="imageControl" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" />
+    </Grid>
+</Window>

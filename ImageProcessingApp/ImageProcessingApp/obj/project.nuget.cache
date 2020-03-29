@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "gskvVlOhGuDQzLgKZ4pEp+ZadasL5HILJz6y0KlAz5Ik1evWsppPa6njEeA0SPHRhe/RatMUq37GYmms85WSiQ==",
+  "success": true,
+  "projectFilePath": "F:\\Documents\\CSharpProjects\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\cezar\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\cezar\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\cezar\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512"
+  ],
+  "logs": []
+}
