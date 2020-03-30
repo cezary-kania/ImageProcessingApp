@@ -65,6 +65,8 @@ namespace ImageProcessingApp.Views
         public void ReloadImage()
         {
             imageControl.Source = Utils.BitmapToImageSource(img.Bitmap);
+            if (histogramWindow != null)
+                histogramWindow.ReloadHistogram();
         }
         private void HistogramBtnClick(object sender, RoutedEventArgs e)
         {
@@ -74,8 +76,6 @@ namespace ImageProcessingApp.Views
         {
             Models.ImageOperations.ImageNegation(img);
             ReloadImage();
-            if (histogramWindow != null)
-                histogramWindow.ReloadHistogram();
         }
         private void ThresholdingBtn_Click(object sender, RoutedEventArgs e)
         {

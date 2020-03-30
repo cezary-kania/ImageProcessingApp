@@ -19,8 +19,9 @@ namespace ImageProcessingApp.Views
     public partial class PointOperationsWindow : Window
     {
         private delegate Bitmap OperationExecute(Bitmap bmp1, Bitmap bmp2);
-        MainWindow parentWindow;
-        Models.Application app;
+        private MainWindow parentWindow;
+        private Models.Application app;
+        private Models.Image img;
         public PointOperationsWindow(MainWindow parentWindow, Models.Application app)
         {
             this.parentWindow = parentWindow;
@@ -33,12 +34,10 @@ namespace ImageProcessingApp.Views
             else
                 OperationComboBox.Items.Add("NOT");
         }
-
         private void button_Click(object sender, RoutedEventArgs e)
         {
             Models.Image image1 = app.images[Image1ComboBox.SelectedItem.ToString()];
             Bitmap bitmap1 = image1.Bitmap;
-            Models.Image img;
             if (Image2ComboBox.SelectedItem == null)
             {
                 img = new Models.Image();
@@ -51,10 +50,15 @@ namespace ImageProcessingApp.Views
                 img = new Models.Image();
                 img.Bitmap = ExecuteOperation(bitmap1, bitmap2);
             }
+            preview_image.Source = Utils.BitmapToImageSource(img.Bitmap);
+        }
+        private void ApplyBtn_Click(object sender, RoutedEventArgs e)
+        {
             img.filename = app.RenderNewTmpName();
-            ImageWindow imageWindow = new ImageWindow(parentWindow, img);
             app.images.Add(img.filename, img);
+            ImageWindow imageWindow = new ImageWindow(parentWindow, img);
             parentWindow.imageWindows.Add(img.filename, imageWindow);
+            imageWindow.Owner = Window.GetWindow(parentWindow);
             parentWindow.AddImageToMenus(img.filename);
             imageWindow.Show();
             Close();
@@ -90,7 +94,7 @@ namespace ImageProcessingApp.Views
         }
         private void TryEnableButton()
         {
-            button.IsEnabled = !(Image1ComboBox.SelectedItem == null)
+            button.IsEnabled = ApplyBtn.IsEnabled = !(Image1ComboBox.SelectedItem == null)
                 && ((!(Image2ComboBox.SelectedItem == null) && !(OperationComboBox.SelectedItem == null))
                 || (!(OperationComboBox.SelectedItem == null) && OperationComboBox.SelectedItem.Equals("NOT")));
         }

@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageProcessingApp.Views"
         mc:Ignorable="d"
-        Title="PosterizeWindow" Height="118" Width="283" Closing="Window_Closing">
+        Title="PosterizeWindow" Height="321" Width="280" ResizeMode="CanMinimize">
     <Grid>
         <Label x:Name="label" Content="Luminance levels:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="ApplyBtn" Content="Apply" HorizontalAlignment="Left" Margin="201,48,0,0" VerticalAlignment="Top" Click="ApplyBtn_Click"/>
-        <Button x:Name="CancelBtn" Content="Cancel" HorizontalAlignment="Left" Margin="143,48,0,0" VerticalAlignment="Top" Click="CancelBtn_Click"/>
+        <Button x:Name="ApplyBtn" Content="Apply" HorizontalAlignment="Left" Margin="220,253,0,0" VerticalAlignment="Top" Click="ApplyBtn_Click"/>
+        <Button x:Name="CancelBtn" Content="Cancel" HorizontalAlignment="Left" Margin="111,252,0,0" VerticalAlignment="Top" Click="CancelBtn_Click"/>
         <TextBox x:Name="LevelsTB" HorizontalAlignment="Left" Margin="122,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Image x:Name="preview_image" HorizontalAlignment="Center" Height="181" Margin="0,50,0,0" VerticalAlignment="Top" MaxWidth="280"/>
+        <Button x:Name="PosterizeBtn" Content="Posterize" HorizontalAlignment="Left" Margin="159,252,0,0" VerticalAlignment="Top" Click="PostrerizeBtn_Click"/>
     </Grid>
 </Window>

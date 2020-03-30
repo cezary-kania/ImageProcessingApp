@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,7 +18,8 @@ namespace ImageProcessingApp.Views
     /// </summary>
     public partial class RangeStrWindow : Window
     {
-        Models.Image img;
+        private Models.Image img;
+        private Models.Image prev_image;
         ImageWindow imageWindow;
         private uint p1, p2, q3, q4;
         public RangeStrWindow(Models.Image img, ImageWindow imageWindow)
@@ -25,20 +27,40 @@ namespace ImageProcessingApp.Views
             InitializeComponent();
             this.img = img;
             this.imageWindow = imageWindow;
+            prev_image = new Models.Image();
+            CloneOrginalImage();
+            preview_image.Source = Utils.BitmapToImageSource(prev_image.Bitmap);
             p1_TB.Text = (p1 = 0).ToString();
             p2_TB.Text = (p2 = 255).ToString();
             q3_TB.Text = (q3 = 0).ToString();
             q4_TB.Text = (q4 = 255).ToString();
         }
+        private void CloneOrginalImage()
+        {
+            prev_image.Bitmap = (Bitmap)img.Bitmap.Clone();
+        }
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            Models.ImageOperations.RangeStretching(img, p1, p2, q3, q4);
+            img.Bitmap = (Bitmap)prev_image.Bitmap.Clone();
             imageWindow.ReloadImage();
+            Close();
         }
 
         private void p1_TB_TextChanged(object sender, TextChangedEventArgs e)
         {
             ApplyBtn.IsEnabled = uint.TryParse(p1_TB.Text, out p1) && p1 < p2 && p1 <= 255;
+        }
+
+        private void StretchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CloneOrginalImage();
+            Models.ImageOperations.RangeStretching(prev_image, p1, p2, q3, q4);
+            preview_image.Source = Utils.BitmapToImageSource(prev_image.Bitmap);
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
 
         private void p2_TB_TextChanged(object sender, TextChangedEventArgs e)

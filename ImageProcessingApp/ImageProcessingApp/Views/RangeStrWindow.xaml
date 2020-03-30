@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageProcessingApp.Views"
         mc:Ignorable="d"
-        Title="RangeStrWindow" Height="236" Width="208" ResizeMode="CanMinimize">
+        Title="RangeStrWindow" Height="233" Width="450" ResizeMode="CanMinimize">
     <Grid>
-        <Button x:Name="ApplyBtn" Content="Apply" HorizontalAlignment="Left" Margin="132,178,0,0" VerticalAlignment="Top" Click="button_Click"/>
+        <Button x:Name="ApplyBtn" Content="Apply" HorizontalAlignment="Left" Margin="135,178,0,0" VerticalAlignment="Top" Click="button_Click"/>
         <Label x:Name="label" Content="p1" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1" Content="p2" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="p1_TB" HorizontalAlignment="Left" Margin="47,18,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="p1_TB_TextChanged"/>
@@ -16,6 +16,9 @@
         <Label x:Name="label1_Copy" Content="q4" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="q3_TB" HorizontalAlignment="Left" Margin="47,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="q3_TB_TextChanged"/>
         <TextBox x:Name="q4_TB" HorizontalAlignment="Left" Margin="47,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="q4_TB_TextChanged"/>
-        <Label x:Name="label2" Content="To:" HorizontalAlignment="Center" Margin="0,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.57,0.246"/>
+        <Label x:Name="label2" Content="To:" HorizontalAlignment="Left" Margin="95,73,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.57,0.246"/>
+        <Image x:Name="preview_image" HorizontalAlignment="Right" Height="181" Margin="0,0,40,0" VerticalAlignment="Top" MaxWidth="200"/>
+        <Button x:Name="CancelBtn" Content="Cancel" HorizontalAlignment="Left" Margin="16,178,0,0" VerticalAlignment="Top" Click="CancelBtn_Click"/>
+        <Button x:Name="StretchBtn" Content="Stretch" HorizontalAlignment="Left" Margin="79,178,0,0" VerticalAlignment="Top" Click="StretchBtn_Click"/>
     </Grid>
 </Window>

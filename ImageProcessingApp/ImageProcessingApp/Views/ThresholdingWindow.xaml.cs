@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,12 +20,15 @@ namespace ImageProcessingApp.Views
     {
         private ImageWindow parentWindow;
         private Models.Image img;
+        private Models.Image prev_image;
         public ThresholdingWindow(Models.Image img, ImageWindow parentWindow)
         {
+            InitializeComponent();
             this.parentWindow = parentWindow;
             this.img = img;
-            InitializeComponent();
-
+            prev_image = new Models.Image();
+            CloneOrginalImage();
+            
             p1_slider.Maximum = 255;
             p1_slider.Minimum = 0;
             p1_TB.Text = (255 / 2).ToString();
@@ -32,22 +36,37 @@ namespace ImageProcessingApp.Views
         }
         private void ApplyBtn_Click(object sender, RoutedEventArgs e)
         {
-            //parentWindow.ApplyBitmapChange();
+            img.Bitmap = (Bitmap) prev_image.Bitmap.Clone();
+            parentWindow.ReloadImage();
             Close();
+        }
+        private void CloneOrginalImage()
+        {
+            prev_image.Bitmap = (Bitmap)img.Bitmap.Clone();
         }
         private void CB_2_Checked(object sender, RoutedEventArgs e)
         {
-            Models.ImageOperations.OnePBinaryThresholing(img, (int)p1_slider.Value);
+            CloneOrginalImage();
+            Models.ImageOperations.OnePBinaryThresholingWithKeepingL(prev_image, (int)p1_slider.Value);
+            preview_image.Source = Utils.BitmapToImageSource(prev_image.Bitmap);
+        }
+        private void CB_2_Unchecked(object sender, RoutedEventArgs e)
+        {
+            CloneOrginalImage();
+            Models.ImageOperations.OnePBinaryThresholing(prev_image, (int)p1_slider.Value);
+            preview_image.Source = Utils.BitmapToImageSource(prev_image.Bitmap);
         }
         private void p1_slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             int newValue = (int)((Slider)sender).Value;
             p1_TB.Text = newValue.ToString();
+            CloneOrginalImage();
             if (!(bool)CB_2.IsChecked)
-                Models.ImageOperations.OnePBinaryThresholing(img, newValue);
+                Models.ImageOperations.OnePBinaryThresholing(prev_image, newValue);
             else
-                Models.ImageOperations.OnePBinaryThresholingWithKeepingL(img, newValue);
-            parentWindow.ReloadImage();
+                Models.ImageOperations.OnePBinaryThresholingWithKeepingL(prev_image, newValue);
+            preview_image.Source = Utils.BitmapToImageSource(prev_image.Bitmap);
+
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -65,11 +84,19 @@ namespace ImageProcessingApp.Views
             p1_slider.IsEnabled = true;
             ApplyBtn.IsEnabled = true;
             p1_slider.Value = newP1;
+            CloneOrginalImage();
             if (!(bool)CB_2.IsChecked)
-                Models.ImageOperations.OnePBinaryThresholing(img, newP1);
+                Models.ImageOperations.OnePBinaryThresholing(prev_image, newP1);
             else
-                Models.ImageOperations.OnePBinaryThresholingWithKeepingL(img, newP1);
-            parentWindow.ReloadImage();
+                Models.ImageOperations.OnePBinaryThresholingWithKeepingL(prev_image, newP1);
+            preview_image.Source = Utils.BitmapToImageSource(prev_image.Bitmap);
         }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+       
     }
 }

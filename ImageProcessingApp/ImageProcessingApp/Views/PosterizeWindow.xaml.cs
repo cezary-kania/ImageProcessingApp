@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,36 +18,46 @@ namespace ImageProcessingApp.Views
     /// </summary>
     public partial class PosterizeWindow : Window
     {
-        Models.Image img;
-        ImageWindow parentWindow;
+        private Models.Image img;
+        private Models.Image prev_image;
+        private ImageWindow parentWindow;
         public PosterizeWindow(Models.Image img, ImageWindow parentWindow)
         {
             InitializeComponent();
             this.img = img;
             this.parentWindow = parentWindow;
+            prev_image = new Models.Image();
+            CloneOrginalImage();
+            preview_image.Source = Utils.BitmapToImageSource(prev_image.Bitmap);
         }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void CloneOrginalImage()
         {
-
+            prev_image.Bitmap = (Bitmap)img.Bitmap.Clone();
         }
 
         private void ApplyBtn_Click(object sender, RoutedEventArgs e)
+        {
+            img.Bitmap = (Bitmap)prev_image.Bitmap.Clone();
+            parentWindow.ReloadImage();
+            Close();
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void PostrerizeBtn_Click(object sender, RoutedEventArgs e)
         {
             uint levels;
             if (uint.TryParse(LevelsTB.Text, out levels))
             {
                 levels = Math.Min(levels, 256);
                 LevelsTB.Text = levels.ToString();
-                Models.ImageOperations.Posterize(img, (int) levels);
+                Models.ImageOperations.Posterize(prev_image, (int)levels);
+                preview_image.Source = Utils.BitmapToImageSource(prev_image.Bitmap);
             }
             else return;
-            parentWindow.ReloadImage();
-        }
-
-        private void CancelBtn_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

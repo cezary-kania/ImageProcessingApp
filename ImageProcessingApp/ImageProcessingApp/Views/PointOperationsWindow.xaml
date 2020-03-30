@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageProcessingApp.Views"
         mc:Ignorable="d"
-        Title="PointOperationsWindow" Height="366" Width="286" ResizeMode="CanMinimize">
+        Title="PointOperationsWindow" Height="366" Width="522" ResizeMode="CanMinimize">
     <Grid>
         <ComboBox x:Name="Image1ComboBox" HorizontalAlignment="Left" Margin="48,80,0,0" VerticalAlignment="Top" Width="170" SelectionChanged="Image1ComboBox_SelectionChanged" SelectedIndex="3"/>
         <ComboBox x:Name="Image2ComboBox" HorizontalAlignment="Left" Margin="48,143,0,0" VerticalAlignment="Top" Width="170" SelectionChanged="Image2ComboBox_SelectionChanged" IsEnabled="False"/>
@@ -14,6 +14,8 @@
         <Label x:Name="label1_Copy" Content="Image 2:" HorizontalAlignment="Left" Margin="47,112,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1_Copy1" Content="Operation:" HorizontalAlignment="Left" Margin="47,180,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="OperationComboBox" HorizontalAlignment="Left" Margin="48,215,0,0" VerticalAlignment="Top" Width="170" SelectionChanged="OperationComboBox_SelectionChanged"/>
-        <Button x:Name="button" Content="Execute" HorizontalAlignment="Left" Margin="178,262,0,0" VerticalAlignment="Top" Click="button_Click" IsEnabled="False"/>
+        <Button x:Name="button" Content="Execute" HorizontalAlignment="Left" Margin="124,262,0,0" VerticalAlignment="Top" Click="button_Click" IsEnabled="False"/>
+        <Button x:Name="ApplyBtn" Content="Apply" HorizontalAlignment="Left" Margin="183,262,0,0" VerticalAlignment="Top" Click="ApplyBtn_Click" IsEnabled="False"/>
+        <Image x:Name="preview_image" HorizontalAlignment="Right" Height="181" Margin="0,80,150,0" VerticalAlignment="Top" MaxWidth="200"/>
     </Grid>
 </Window>

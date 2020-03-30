@@ -5,13 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageProcessingApp.Views"
         mc:Ignorable="d"
-        Title="ThresholdingWindow" Height="137" Width="358" ResizeMode="CanMinimize" Closing="Window_Closing">
+        Title="ThresholdingWindow" Height="380" Width="372" ResizeMode="CanMinimize" Closing="Window_Closing">
     <Grid>
-        <CheckBox x:Name="CB_2" Content="Thresholding with keeping luminance levels" HorizontalAlignment="Left" Margin="32,46,0,0" VerticalAlignment="Top" Checked="CB_2_Checked"/>
-        <Button x:Name="ApplyBtn" Content="Apply" HorizontalAlignment="Left" Margin="274,69,0,0" VerticalAlignment="Top" Width="54" Click="ApplyBtn_Click" Height="24"/>
+        <CheckBox x:Name="CB_2" Content="Thresholding with keeping luminance levels" HorizontalAlignment="Left" Margin="32,46,0,0" VerticalAlignment="Top" Checked="CB_2_Checked" Unchecked="CB_2_Unchecked"/>
+        <Button x:Name="ApplyBtn" Content="Apply" HorizontalAlignment="Left" Margin="283,288,0,0" VerticalAlignment="Top" Width="54" Click="ApplyBtn_Click" Height="24"/>
         <Slider x:Name="p1_slider" HorizontalAlignment="Left" Margin="57,14,0,0" VerticalAlignment="Top" Width="176" ValueChanged="p1_slider_ValueChanged" IsSnapToTickEnabled="True"
     TickFrequency="1"/>
         <TextBox x:Name="p1_TB" HorizontalAlignment="Left" Margin="250,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="64" LostFocus="p1_TB_LostFocus"/>
         <Label x:Name="p1_label" Content="p1" HorizontalAlignment="Left" Margin="26,6,0,0" VerticalAlignment="Top"/>
+        <Image x:Name="preview_image" HorizontalAlignment="Center" Height="181" Margin="10,80,0,0" VerticalAlignment="Top" MaxWidth="372"/>
+        <Button x:Name="Cancel_Btn" Content="Cancel" HorizontalAlignment="Left" Margin="217,288,0,0" VerticalAlignment="Top" Width="54" Click="CancelBtn_Click" Height="24"/>
     </Grid>
 </Window>
