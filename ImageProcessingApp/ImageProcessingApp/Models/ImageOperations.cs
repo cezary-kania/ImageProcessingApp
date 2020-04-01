@@ -140,9 +140,27 @@ namespace ImageProcessingApp.Models
                 }
                 return bmp;
             }
-            public static Bitmap Blending(Bitmap bmp1, Bitmap bmp2)
+            public static Bitmap Blending(Bitmap bmp1, Bitmap bmp2, double blendingRatio)
             {
-                return null;
+                blendingRatio = Math.Max(Math.Min(1, blendingRatio), 0);
+                int width = Math.Min(bmp1.Width, bmp2.Width);
+                int height = Math.Min(bmp1.Height, bmp2.Height);
+                Bitmap bmp = new Bitmap(width, height);
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        Color color1 = bmp1.GetPixel(i, j);
+                        Color color2 = bmp2.GetPixel(i, j);
+                        byte R1 = color1.R, G1 = color1.G, B1 = color1.B;
+                        byte R2 = color2.R, G2 = color2.G, B2 = color2.B;
+                        byte outR = (byte) (blendingRatio * R1 + (1 - blendingRatio) * R2);
+                        byte outG = (byte) (blendingRatio * G1 + (1 - blendingRatio) * G2);
+                        byte outB = (byte) (blendingRatio * B1 + (1 - blendingRatio) * B2);
+                        bmp.SetPixel(i, j, Color.FromArgb(outR, outG, outB));
+                    }
+                }
+                return bmp;
             }
             public static Bitmap AND(Bitmap bmp1, Bitmap bmp2)
             {
@@ -275,7 +293,7 @@ namespace ImageProcessingApp.Models
                 level = 0;
                 for (int j = 0; j < 256; j++)
                 {
-                    ColorRedirect[i][j] = level;
+                    ColorRedirect[i][j] = Math.Min(level, 255);
                     if (j != 0 && j % pwith == 0)
                     {
                         if (level == 0) level += (pwith - 1);

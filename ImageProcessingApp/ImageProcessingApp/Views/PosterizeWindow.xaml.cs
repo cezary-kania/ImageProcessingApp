@@ -21,6 +21,7 @@ namespace ImageProcessingApp.Views
         private Models.Image img;
         private Models.Image prev_image;
         private ImageWindow parentWindow;
+        private uint levels;
         public PosterizeWindow(Models.Image img, ImageWindow parentWindow)
         {
             InitializeComponent();
@@ -49,15 +50,14 @@ namespace ImageProcessingApp.Views
 
         private void PostrerizeBtn_Click(object sender, RoutedEventArgs e)
         {
-            uint levels;
-            if (uint.TryParse(LevelsTB.Text, out levels))
-            {
-                levels = Math.Min(levels, 256);
-                LevelsTB.Text = levels.ToString();
-                Models.ImageOperations.Posterize(prev_image, (int)levels);
-                preview_image.Source = Utils.BitmapToImageSource(prev_image.Bitmap);
-            }
-            else return;
+            CloneOrginalImage();
+            Models.ImageOperations.Posterize(prev_image, (int)levels);
+            preview_image.Source = Utils.BitmapToImageSource(prev_image.Bitmap);
+        }
+
+        private void LevelsTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            PosterizeBtn.IsEnabled = uint.TryParse(LevelsTB.Text, out levels) && levels > 0 && levels <= 256;
         }
     }
 }

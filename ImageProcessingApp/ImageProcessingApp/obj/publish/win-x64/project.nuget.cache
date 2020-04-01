@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "5IfPqLrXCQ8M3GE8sHGbxdoc/Yqrky1togjnNv9OoI9K3MgFlsIYYfwr9dbaxzuD+mHpyfpCeDCKxsnmNmxppQ==",
+  "success": true,
+  "projectFilePath": "F:\\Documents\\CSharpProjects\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\cezar\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\cezar\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
+    "C:\\Users\\cezar\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512",
+    "C:\\Users\\cezar\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x64\\3.1.2\\microsoft.netcore.app.runtime.win-x64.3.1.2.nupkg.sha512",
+    "C:\\Users\\cezar\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x64\\3.1.2\\microsoft.windowsdesktop.app.runtime.win-x64.3.1.2.nupkg.sha512",
+    "C:\\Users\\cezar\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x64\\3.1.2\\microsoft.aspnetcore.app.runtime.win-x64.3.1.2.nupkg.sha512"
+  ],
+  "logs": []
+}

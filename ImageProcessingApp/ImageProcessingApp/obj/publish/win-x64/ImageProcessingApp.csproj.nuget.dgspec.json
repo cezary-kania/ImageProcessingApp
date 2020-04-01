@@ -1,0 +1,88 @@
+{
+  "format": 1,
+  "restore": {
+    "F:\\Documents\\CSharpProjects\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp.csproj": {}
+  },
+  "projects": {
+    "F:\\Documents\\CSharpProjects\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "F:\\Documents\\CSharpProjects\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp.csproj",
+        "projectName": "ImageProcessingApp",
+        "projectPath": "F:\\Documents\\CSharpProjects\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp.csproj",
+        "packagesPath": "C:\\Users\\cezar\\.nuget\\packages\\",
+        "outputPath": "F:\\Documents\\CSharpProjects\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp\\obj\\publish\\win-x64\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\cezar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[4.7.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[3.1.2, 3.1.2]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[3.1.2, 3.1.2]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[3.1.2, 3.1.2]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

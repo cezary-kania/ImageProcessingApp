@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageProcessingApp.Views"
         mc:Ignorable="d"
-        Title="PointOperationsWindow" Height="366" Width="522" ResizeMode="CanMinimize">
+        Title="PointOperationsWindow" Height="366" Width="622" ResizeMode="CanMinimize">
     <Grid>
         <ComboBox x:Name="Image1ComboBox" HorizontalAlignment="Left" Margin="48,80,0,0" VerticalAlignment="Top" Width="170" SelectionChanged="Image1ComboBox_SelectionChanged" SelectedIndex="3"/>
         <ComboBox x:Name="Image2ComboBox" HorizontalAlignment="Left" Margin="48,143,0,0" VerticalAlignment="Top" Width="170" SelectionChanged="Image2ComboBox_SelectionChanged" IsEnabled="False"/>
@@ -14,8 +14,12 @@
         <Label x:Name="label1_Copy" Content="Image 2:" HorizontalAlignment="Left" Margin="47,112,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1_Copy1" Content="Operation:" HorizontalAlignment="Left" Margin="47,180,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="OperationComboBox" HorizontalAlignment="Left" Margin="48,215,0,0" VerticalAlignment="Top" Width="170" SelectionChanged="OperationComboBox_SelectionChanged"/>
-        <Button x:Name="button" Content="Execute" HorizontalAlignment="Left" Margin="124,262,0,0" VerticalAlignment="Top" Click="button_Click" IsEnabled="False"/>
-        <Button x:Name="ApplyBtn" Content="Apply" HorizontalAlignment="Left" Margin="183,262,0,0" VerticalAlignment="Top" Click="ApplyBtn_Click" IsEnabled="False"/>
-        <Image x:Name="preview_image" HorizontalAlignment="Right" Height="181" Margin="0,80,150,0" VerticalAlignment="Top" MaxWidth="200"/>
+        <Button x:Name="button" Content="Execute" HorizontalAlignment="Left" Margin="112,288,0,0" VerticalAlignment="Top" Click="button_Click" IsEnabled="False"/>
+        <Button x:Name="ApplyBtn" Content="Apply" HorizontalAlignment="Left" Margin="183,288,0,0" VerticalAlignment="Top" Click="ApplyBtn_Click" IsEnabled="False"/>
+        <Image x:Name="preview_image" HorizontalAlignment="Right" Height="181" Margin="0,80,100,0" VerticalAlignment="Top" MaxWidth="200"/>
+        <Button x:Name="CancelBtn" Content="Cancel" HorizontalAlignment="Left" Margin="49,289,0,0" VerticalAlignment="Top" Click="CancelBtn_Click" />
+        <Label x:Name="BlendingRatioLB" Content="Blending ratio(0-1):" HorizontalAlignment="Left" Margin="46,250,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <TextBox x:Name="BlendingRatioTB" HorizontalAlignment="Left" Margin="163,254,0,0" Text="0,5" TextWrapping="Wrap" VerticalAlignment="Top" Width="55" Visibility="Hidden" TextChanged="BlendingRatioTB_TextChanged"/>
+        <Label x:Name="label2" Content="Preview:" HorizontalAlignment="Left" Margin="291,16,0,0" VerticalAlignment="Top"/>
     </Grid>
 </Window>

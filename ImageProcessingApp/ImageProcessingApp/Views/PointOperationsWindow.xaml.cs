@@ -18,10 +18,11 @@ namespace ImageProcessingApp.Views
     /// </summary>
     public partial class PointOperationsWindow : Window
     {
-        private delegate Bitmap OperationExecute(Bitmap bmp1, Bitmap bmp2);
+        private delegate Bitmap OperationExecute(Bitmap bmp1, Bitmap bmp2, double? param);
         private MainWindow parentWindow;
         private Models.Application app;
         private Models.Image img;
+        private double blendingRatio =0.5;
         public PointOperationsWindow(MainWindow parentWindow, Models.Application app)
         {
             this.parentWindow = parentWindow;
@@ -41,14 +42,17 @@ namespace ImageProcessingApp.Views
             if (Image2ComboBox.SelectedItem == null)
             {
                 img = new Models.Image();
-                img.Bitmap = ExecuteOperation(bitmap1, null);
+                img.Bitmap = ExecuteOperation(bitmap1, null,null);
             }
             else
             {
                 Models.Image image2 = app.images[Image2ComboBox.SelectedItem.ToString()];
                 Bitmap bitmap2 = image2.Bitmap;
                 img = new Models.Image();
-                img.Bitmap = ExecuteOperation(bitmap1, bitmap2);
+                if (OperationComboBox.SelectedItem.ToString().Equals("Blending"))
+                    img.Bitmap = ExecuteOperation(bitmap1, bitmap2, blendingRatio);
+                else
+                    img.Bitmap = ExecuteOperation(bitmap1, bitmap2,null);
             }
             preview_image.Source = Utils.BitmapToImageSource(img.Bitmap);
         }
@@ -65,17 +69,17 @@ namespace ImageProcessingApp.Views
         }
         private Dictionary<string, OperationExecute> operations = new Dictionary<string, OperationExecute>
         {
-            {"Add", (bitmap1, bitmap2) => { return Models.ImageOperations.TwoArgsOperations.Add(bitmap1,bitmap2); } },
-            {"Blending", (bitmap1, bitmap2) => { return Models.ImageOperations.TwoArgsOperations.Blending(bitmap1,bitmap2); } },
-            {"OR", (bitmap1, bitmap2) => { return Models.ImageOperations.TwoArgsOperations.OR(bitmap1,bitmap2); } },
-            {"AND", (bitmap1, bitmap2) => { return Models.ImageOperations.TwoArgsOperations.AND(bitmap1,bitmap2); } },
-            {"XOR", (bitmap1, bitmap2) => { return Models.ImageOperations.TwoArgsOperations.XOR(bitmap1,bitmap2); } },
-            {"NOT", (bitmap1, bitmap2) => { return Models.ImageOperations.TwoArgsOperations.NOT(bitmap1); } },
+            {"Add", (bitmap1, bitmap2, param) => { return Models.ImageOperations.TwoArgsOperations.Add(bitmap1,bitmap2); } },
+            {"Blending", (bitmap1, bitmap2, param) => { return Models.ImageOperations.TwoArgsOperations.Blending(bitmap1,bitmap2,(double) param); } },
+            {"OR", (bitmap1, bitmap2, param) => { return Models.ImageOperations.TwoArgsOperations.OR(bitmap1,bitmap2); } },
+            {"AND", (bitmap1, bitmap2, param) => { return Models.ImageOperations.TwoArgsOperations.AND(bitmap1,bitmap2); } },
+            {"XOR", (bitmap1, bitmap2, param) => { return Models.ImageOperations.TwoArgsOperations.XOR(bitmap1,bitmap2); } },
+            {"NOT", (bitmap1, bitmap2, param) => { return Models.ImageOperations.TwoArgsOperations.NOT(bitmap1); } },
         };
-        private Bitmap ExecuteOperation(Bitmap bitmap1, Bitmap bitmap2)
+        private Bitmap ExecuteOperation(Bitmap bitmap1, Bitmap bitmap2, double? param)
         {
             string operation = OperationComboBox.SelectedItem.ToString();
-            return operations[operation](bitmap1, bitmap2);
+            return operations[operation](bitmap1, bitmap2, param);
         }
         private void Image1ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -84,19 +88,45 @@ namespace ImageProcessingApp.Views
         }
         private void Image2ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            foreach (string key in operations.Keys)
+                if (!OperationComboBox.Items.Contains(key))
+                    OperationComboBox.Items.Add(key);
             if (!(OperationComboBox.SelectedItem == null) && OperationComboBox.SelectedItem.Equals("NOT")) OperationComboBox.SelectedItem = null;
             OperationComboBox.Items.Remove("NOT");
             TryEnableButton();
         }
         private void OperationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TryEnableButton();
+            if (!(OperationComboBox.SelectedItem == null) && OperationComboBox.SelectedItem.Equals("Blending"))
+            {
+                BlendingRatioLB.Visibility = Visibility.Visible;
+                BlendingRatioTB.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                BlendingRatioLB.Visibility = Visibility.Hidden;
+                BlendingRatioTB.Visibility = Visibility.Hidden;
+            }
+                TryEnableButton();
         }
-        private void TryEnableButton()
+        private bool TryEnableButton()
         {
-            button.IsEnabled = ApplyBtn.IsEnabled = !(Image1ComboBox.SelectedItem == null)
+            return button.IsEnabled = ApplyBtn.IsEnabled = !(Image1ComboBox.SelectedItem == null)
                 && ((!(Image2ComboBox.SelectedItem == null) && !(OperationComboBox.SelectedItem == null))
                 || (!(OperationComboBox.SelectedItem == null) && OperationComboBox.SelectedItem.Equals("NOT")));
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void BlendingRatioTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(double.TryParse(BlendingRatioTB.Text, out blendingRatio) && TryEnableButton() && blendingRatio <= 1 && blendingRatio >= 0)
+                button.IsEnabled = ApplyBtn.IsEnabled = true;
+            else
+                button.IsEnabled = ApplyBtn.IsEnabled = false;
         }
     }
 }
