@@ -1,0 +1,19 @@
+﻿<Window x:Class="ImageProcessingApp.Views.MedianBlurWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageProcessingApp.Views"
+        mc:Ignorable="d"
+        Title="MedianBlurWindow" Height="380" Width="372" ResizeMode="CanMinimize">
+    <Grid>
+        <Image x:Name="preview_image" HorizontalAlignment="Center" Height="181" Margin="10,80,0,0" VerticalAlignment="Top" MaxWidth="372"/>
+        <Button x:Name="Cancel_Btn" Content="Cancel" HorizontalAlignment="Center" Margin="0,288,0,0" VerticalAlignment="Top" Width="54" Click="CancelBtn_Click" Height="24"/>
+        <Button x:Name="ApplyBtn" Content="Apply" HorizontalAlignment="Left" Margin="283,288,0,0" VerticalAlignment="Top" Width="54" Click="ApplyBtn_Click" Height="24"/>
+        <ComboBox x:Name="bluringCB" HorizontalAlignment="Left" Margin="160,14,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="125,15,0,0" Text="type:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <ComboBox x:Name="BorderOpCB" HorizontalAlignment="Left" Margin="160,44,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="65,45,0,0" Text="Borderoperation:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Button x:Name="ExecuteBtn" Content="Execute" HorizontalAlignment="Left" Margin="220,288,0,0" VerticalAlignment="Top" Width="54" Click="ExecuteBtn_Click" Height="24"/>
+    </Grid>
+</Window>

@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "5IfPqLrXCQ8M3GE8sHGbxdoc/Yqrky1togjnNv9OoI9K3MgFlsIYYfwr9dbaxzuD+mHpyfpCeDCKxsnmNmxppQ==",
+  "dgSpecHash": "UYV4buyKL/6NuGSrCAl1z+V4pbcrZL54zjpJa0JV823RYz//G+bcduVGwNM8YfXr3MjHp9PeRBYknifZZRAmew==",
   "success": true,
   "projectFilePath": "F:\\Documents\\CSharpProjects\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp\\ImageProcessingApp.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\cezar\\.nuget\\packages\\emgu.cv\\4.2.0.3662\\emgu.cv.4.2.0.3662.nupkg.sha512",
+    "C:\\Users\\cezar\\.nuget\\packages\\emgu.cv.runtime.windows\\4.2.0.3662\\emgu.cv.runtime.windows.4.2.0.3662.nupkg.sha512",
     "C:\\Users\\cezar\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\cezar\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\cezar\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512",

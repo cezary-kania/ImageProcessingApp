@@ -18,14 +18,16 @@ namespace ImageProcessingApp.Views
     /// </summary>
     public partial class ImageWindow : Window
     {
-        MainWindow mainWindow;
-        HistogramWindow histogramWindow;
-        Models.Image img;
+        private MainWindow mainWindow;
+        private HistogramWindow histogramWindow;
+        private Models.Image img;
+        private Models.Application app;
         private List<Window> subWindows = new List<Window>();
-        public ImageWindow(MainWindow mainWindow, Models.Image img)
+        public ImageWindow(MainWindow mainWindow, Models.Image img, Models.Application app)
         {
             InitializeComponent();
             this.img = img;
+            this.app = app;
             this.mainWindow = mainWindow;
             Title = img.filename;
             imageControl.Source = Utils.BitmapToImageSource(img.Bitmap);
@@ -88,6 +90,76 @@ namespace ImageProcessingApp.Views
         private void LumRangeStr_Click(object sender, RoutedEventArgs e)
         {
             new RangeStrWindow(img, this).ShowDialog();
+        }
+        private void BluringBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new BluringWindow(img, this).ShowDialog();
+        }
+        private void EdetectionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            new EdetectionWindow(img, this).ShowDialog();
+        }
+        private void LSharpeningMI__Click(object sender, RoutedEventArgs e)
+        {
+            new LinearSharpenWindow(img, this).ShowDialog();
+        }
+
+        private void PrewittEDetectionMI_Click(object sender, RoutedEventArgs e)
+        {
+            new PrewittWindow(img, this).ShowDialog();
+        }
+
+        private void CustomMaskMI_Click(object sender, RoutedEventArgs e)
+        {
+            new CustomMaskWindow(img, this).ShowDialog();
+        }
+
+        private void MedianBlurMI_Click(object sender, RoutedEventArgs e)
+        {
+            new MedianBlurWindow(img, this).ShowDialog();
+        }
+
+        private void ObjsSeg_Click(object sender, RoutedEventArgs e)
+        {
+            new ObjectSegmentationWindow2(img, this).ShowDialog();
+        }
+
+        private void MorphologicalOP_Click(object sender, RoutedEventArgs e)
+        {
+            new MorphologicalOperationsWindow(img, this).ShowDialog();
+        }
+
+        private void MaskConvolutionMI_Click(object sender, RoutedEventArgs e)
+        {
+            new MaskConvolutionWindow(img, this).ShowDialog();
+        }
+
+        private void Skeletonization_Click(object sender, RoutedEventArgs e)
+        {
+            new SkeletonizationWindow(img, this).ShowDialog();
+        }
+
+        private void Lab5_th_Click(object sender, RoutedEventArgs e)
+        {
+            new Lab5_thresholding(img, this).ShowDialog();
+        }
+        private void DuplicateBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Models.Image duplicatedImg = new Models.Image();
+            string current_imgname = (string) img.filename.Clone();
+            duplicatedImg.filename = app.RenderNewTmpName(ref current_imgname);
+            duplicatedImg.Bitmap = (System.Drawing.Bitmap) img.Bitmap.Clone();
+            app.images.Add(duplicatedImg.filename, duplicatedImg);
+            ImageWindow imageWindow = new ImageWindow(mainWindow, duplicatedImg, app);
+            mainWindow.imageWindows.Add(duplicatedImg.filename, imageWindow);
+            imageWindow.Owner = Window.GetWindow(mainWindow);
+            mainWindow.AddImageToMenus(duplicatedImg.filename);
+            imageWindow.Show();
+        }
+
+        private void FVector_Click(object sender, RoutedEventArgs e)
+        {
+            new lab6_featuresVector(img).ShowDialog();
         }
     }
 }

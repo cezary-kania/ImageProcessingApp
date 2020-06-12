@@ -30,8 +30,8 @@ namespace ImageProcessingApp.Views
             prev_image = new Models.Image();
             CloneOrginalImage();
             preview_image.Source = Utils.BitmapToImageSource(prev_image.Bitmap);
-            p1_TB.Text = (p1 = 0).ToString();
-            p2_TB.Text = (p2 = 255).ToString();
+            p1_TB.Text = (p1 = (uint) img.MinColorValue()).ToString();
+            p2_TB.Text = (p2 = (uint)img.MaxColorValue()).ToString();
             q3_TB.Text = (q3 = 0).ToString();
             q4_TB.Text = (q4 = 255).ToString();
         }

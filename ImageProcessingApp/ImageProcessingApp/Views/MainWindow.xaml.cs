@@ -41,7 +41,7 @@ namespace ImageProcessingApp
                     ImageMI.IsEnabled = true;
                     PointOperations.IsEnabled = true;
                     SaveBtn.IsEnabled = true;
-                    ImageWindow imageWindow = new ImageWindow(this, app.GetImage(filename));
+                    ImageWindow imageWindow = new ImageWindow(this, app.GetImage(filename), app);
                     imageWindow.Owner = Window.GetWindow(this);
                     imageWindows.Add(filename, imageWindow);
                     AddImageToMenus(filename);
@@ -86,8 +86,6 @@ namespace ImageProcessingApp
         }
         private void RemoveImgWindow(string tmpFileName)
         {
-            imageWindows.Remove(tmpFileName);
-            app.images.Remove(tmpFileName);
             string secureImageName = tmpFileName.Replace("_", "__");
             foreach (MenuItem item in HistogramBtn.Items)
             {
@@ -112,6 +110,11 @@ namespace ImageProcessingApp
                 PointOperations.IsEnabled = false;
             }
 
+        }
+
+        private void SVM_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            new lab6_SVM().ShowDialog();
         }
     }
 }

@@ -52,10 +52,11 @@ namespace ImageProcessingApp.Views
                 newhistogramPlotMap.Add("Grayscale", () => { return NewHistogramBitMap(LUT[0]); });
             else if (image.ColorFormat == Models.Image.EColorFormat.RGB)
             {
+                newhistogramPlotMap.Add("Cumulated", () => { return NewHistogramBitMap(LUT[3]); });
                 newhistogramPlotMap.Add("Red", () => { return NewHistogramBitMap(LUT[0]); });
                 newhistogramPlotMap.Add("Green", () => { return NewHistogramBitMap(LUT[1]); });
                 newhistogramPlotMap.Add("Blue", () => { return NewHistogramBitMap(LUT[2]); });
-                newhistogramPlotMap.Add("Cumulated", () => { return NewHistogramBitMap(LUT[3]); });
+                
             }
             return newhistogramPlotMap;
         }

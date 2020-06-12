@@ -36,7 +36,7 @@ namespace ImageProcessingApp.Models
                 for (int y = 0; y < Bitmap.Height; ++y)
                 {
                     Color color = Bitmap.GetPixel(x,y);
-                    if (!(color.R == color.G && color.R == color.G))
+                    if (!(color.R == color.G && color.R == color.B))
                     {
                         colorsNum = 3;
                         return EColorFormat.RGB;
@@ -72,6 +72,40 @@ namespace ImageProcessingApp.Models
                     LUT[3][i] = LUT[0][i] + LUT[1][i] + LUT[2][i];
             }
             return LUT;
+        }
+        public int MinColorValue()
+        {
+            int[][] lut = FindLookUpTable();
+            int min = 255;
+            for (int i = 0; i < lut.Length; i++)
+            {
+                for (int j = 0; j < lut[i].Length; j++)
+                {
+                    if(j < min && lut[i][j] > 0)
+                    {
+                        min = j;
+                        break;
+                    }
+                }
+            }
+            return min;
+        }
+        public int MaxColorValue()
+        {
+            int[][] lut = FindLookUpTable();
+            int max = 0;
+            for (int i = 0; i < lut.Length; ++i)
+            {
+                for (int j = 255; j < lut[i].Length; --j)
+                {
+                    if (j > max && lut[i][j] > 0)
+                    {
+                        max = j;
+                        break;
+                    }
+                }
+            }
+            return max;
         }
     }
 }

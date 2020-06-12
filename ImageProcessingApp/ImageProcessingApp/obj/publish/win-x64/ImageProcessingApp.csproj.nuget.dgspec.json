@@ -38,6 +38,14 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "Emgu.CV": {
+              "target": "Package",
+              "version": "[4.2.0.3662, )"
+            },
+            "Emgu.CV.runtime.windows": {
+              "target": "Package",
+              "version": "[4.2.0.3662, )"
+            },
             "System.Drawing.Common": {
               "target": "Package",
               "version": "[4.7.0, )"
@@ -71,7 +79,7 @@
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             },
-            "Microsoft.WindowsDesktop.App.WPF": {
+            "Microsoft.WindowsDesktop.App": {
               "privateAssets": "none"
             }
           },

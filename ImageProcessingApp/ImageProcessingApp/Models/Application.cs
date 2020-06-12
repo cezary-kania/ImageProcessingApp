@@ -21,12 +21,17 @@ namespace ImageProcessingApp.Models
         }
         public string RenderNewTmpName(ref string orginalName)
         {
-            string tmpfileName = orginalName;
-            List<string> keys = new List<string>(images.Keys);
-            for (int i = 1; keys.Contains(tmpfileName); ++i)
-                tmpfileName = string.Format("{0}({1}).{2} ", orginalName.Split('.')[0], i, orginalName.Split('.')[1]);
-            orginalName = tmpfileName;
-            return tmpfileName;
+            StringBuilder tmpfilename = new StringBuilder(orginalName);
+            List<string> imgNames = new List<string>(images.Keys);
+            int indexOfExt = orginalName.LastIndexOf('.');
+            string fName = orginalName.Substring(0, indexOfExt),
+                   fExtention = orginalName.Substring(indexOfExt + 1);
+            for (int i = 1; imgNames.Contains(tmpfilename.ToString()); ++i) {
+                tmpfilename.Clear();
+                tmpfilename.Append($"{fName}({i}).{fExtention}");
+            }
+            orginalName = tmpfilename.ToString();
+            return tmpfilename.ToString();
         }
         public string RenderNewTmpName()
         {

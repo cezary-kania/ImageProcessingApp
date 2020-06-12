@@ -9,10 +9,43 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Views\BluringWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\CustomMaskWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\EdetectionWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\HistogramWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ImageWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\Lab5_thresholding.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\lab6_featuresVector.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\lab6_SVM.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\LinearSharpenWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MaskConvolutionWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MedianBlurWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\MorphologicalOperationsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ObjectSegmentationWindow2.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\PointOperationsWindow.xaml.cs">
@@ -21,7 +54,13 @@
     <Compile Update="Views\PosterizeWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\PrewittWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\RangeStrWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\SkeletonizationWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ThresholdingWindow.xaml.cs">
@@ -29,13 +68,46 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\BluringWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\CustomMaskWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\EdetectionWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\HistogramWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ImageWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\Lab5_thresholding.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\lab6_featuresVector.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\lab6_SVM.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\LinearSharpenWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MaskConvolutionWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MedianBlurWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\MorphologicalOperationsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ObjectSegmentationWindow2.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\PointOperationsWindow.xaml">
@@ -44,7 +116,13 @@
     <Page Update="Views\PosterizeWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\PrewittWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\RangeStrWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\SkeletonizationWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ThresholdingWindow.xaml">

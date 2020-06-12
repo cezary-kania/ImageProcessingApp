@@ -11,6 +11,7 @@
             <MenuItem Header="_File">
                 <MenuItem Header="_Save" Click="SaveBtn_Click" />
                 <MenuItem Header="_Save As..." Click="SaveAsBtn_Click" />
+                <MenuItem Header="_Duplicate" Click="DuplicateBtn_Click"/>
                 <Separator />
                 <MenuItem Header="_Close" Click="CloseBtn_Click" />
             </MenuItem>
@@ -18,10 +19,26 @@
                 <MenuItem Header="_Histogram" Click="HistogramBtnClick" />
             </MenuItem>
             <MenuItem Header="_Operations">
-                <MenuItem Header="_Negation" Click="NegationBtn_Click" />
-                <MenuItem Header="_Thresholding" Click="ThresholdingBtn_Click" />
-                <MenuItem Header="_Posterize" Click="PosterizeBtn_Click" />
-                <MenuItem Header="_Luminance range streching" Click="LumRangeStr_Click" />
+                <MenuItem Header="_Point Operations">
+                    <MenuItem Header="_Negation" Click="NegationBtn_Click" />
+                    <MenuItem Header="_Thresholding" Click="ThresholdingBtn_Click" />
+                    <MenuItem Header="_Posterize" Click="PosterizeBtn_Click" />
+                    <MenuItem Header="_Luminance range streching" Click="LumRangeStr_Click" />
+                    <MenuItem Header="_Lab5_thresholding" Click="Lab5_th_Click" />
+                </MenuItem>
+                <MenuItem x:Name="NeighborhoodOpMI" Header="Neighborhood operations">
+                    <MenuItem x:Name="BluringMI" Header="Bluring" Click="BluringBtn_Click"/>
+                    <MenuItem x:Name="EdetectionMI" Header="Edge detection" Click="EdetectionBtn_Click"/>
+                    <MenuItem x:Name="LSharpeningMI" Header="Laplace sharpening" Click="LSharpeningMI__Click"/>
+                    <MenuItem x:Name="PrewittEDetectionMI" Header="Prewitt edge detection" Click="PrewittEDetectionMI_Click"/>
+                    <MenuItem x:Name="CustomMaskMI" Header="Custom 3x3 mask" Click="CustomMaskMI_Click"/>
+                    <MenuItem x:Name="MedianBlurMI" Header="Median Blur" Click="MedianBlurMI_Click"/>
+                    <MenuItem x:Name="MaskConvolutionMI" Header="Mask convolution" Click="MaskConvolutionMI_Click"/>
+                </MenuItem>
+                <MenuItem Header="Morphological Operations" Click="MorphologicalOP_Click"/>
+                <MenuItem Header="Skeletonization" Click="Skeletonization_Click"/>
+                <MenuItem Header="Objects segmentation" Click="ObjsSeg_Click"/>
+                <MenuItem Header="Feature Vector" Click="FVector_Click"/>
             </MenuItem>
         </Menu>
         <Image x:Name="imageControl" Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" />

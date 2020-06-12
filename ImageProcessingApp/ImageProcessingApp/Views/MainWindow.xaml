@@ -10,7 +10,6 @@
     <Grid>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <!--<MenuItem Header="_New" />-->
                 <MenuItem Header="_Open" Click="OpenBtn_Click" />
                 <MenuItem x:Name="SaveBtn" Header="_Save"  IsEnabled="False"/>
             </MenuItem>
@@ -18,6 +17,7 @@
                 <MenuItem x:Name="HistogramBtn" Header="_Histogram"/>
                 <MenuItem x:Name="PointOperations" Header="_Point operations" IsEnabled="False" Click="PointOperations_Click" />
             </MenuItem>
+            <MenuItem x:Name="SVM_Btn" Header="SVM" Click="SVM_Btn_Click"></MenuItem>
         </Menu>
     </Grid>
 </Window>

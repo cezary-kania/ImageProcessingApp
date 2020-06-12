@@ -1,0 +1,40 @@
+﻿<Window x:Class="ImageProcessingApp.Views.ObjectSegmentationWindow2"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ImageProcessingApp.Views"
+        mc:Ignorable="d"
+        Title="Objects segmentation" Height="335" Width="554" ResizeMode="CanMinimize">
+    <Grid>
+        <Label x:Name="lower_label" Content="Lower boundary:" HorizontalAlignment="Left" Margin="38,23,0,0" VerticalAlignment="Top"/>
+
+        <Label x:Name="lowerR_label" Content="R:" HorizontalAlignment="Left" Margin="37,54,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="lowerRTB" HorizontalAlignment="Left" Margin="62,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="colorTB_TextChanged"/>
+
+        <Label x:Name="lowerG_label" Content="G:" HorizontalAlignment="Left" Margin="125,54,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="lowerGTB" HorizontalAlignment="Left" Margin="150,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="colorTB_TextChanged"/>
+
+        <Label x:Name="lowerB_label" Content="B:" HorizontalAlignment="Left" Margin="215,54,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="lowerBTB" HorizontalAlignment="Left" Margin="240,58,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="colorTB_TextChanged"/>
+
+        <Label x:Name="Upper_label" Content="Upper boundary:" HorizontalAlignment="Left" Margin="42,103,0,0" VerticalAlignment="Top"/>
+
+        <Label x:Name="upperR_label" Content="R:" HorizontalAlignment="Left" Margin="41,134,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="upperRTB" HorizontalAlignment="Left" Margin="66,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="colorTB_TextChanged"/>
+
+        <Label x:Name="upperG_label" Content="G:" HorizontalAlignment="Left" Margin="129,134,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="upperGTB" HorizontalAlignment="Left" Margin="154,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="colorTB_TextChanged"/>
+
+        <Label x:Name="upperB_label" Content="B:" HorizontalAlignment="Left" Margin="219,134,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="upperBTB" HorizontalAlignment="Left" Margin="244,138,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" TextChanged="colorTB_TextChanged"/>
+
+
+        <Label x:Name="objsCounterLB" HorizontalAlignment="Right" Margin="0,10,70,0" VerticalAlignment="Top"/>
+        <Image x:Name="preview_image" HorizontalAlignment="Right" Height="200" Width="200" Margin="0,50,20,0" VerticalAlignment="Top" MaxWidth="400"/>
+        <Button x:Name="CancelBtn" Content="Cancel" HorizontalAlignment="Left" Margin="25,255,0,0" VerticalAlignment="Top" Click="CancelBtn_Click" Width="54"/>
+        <Button x:Name="ApplyBtn" Content="Apply" HorizontalAlignment="Left" Margin="93,255,0,0" VerticalAlignment="Top" Click="ApplyBtn_Click" Width="49"/>
+        <Button x:Name="SaveToFileBtn" Content="Save to file" HorizontalAlignment="Left" Margin="219,255,0,0" VerticalAlignment="Top" Click="SaveToFileBtn_Click" Width="84"/>
+        <Button x:Name="SaveBtn" Content="Save" HorizontalAlignment="Left" Margin="154,255,0,0" VerticalAlignment="Top" Width="50" Click="SaveBtn_Click"/>
+    </Grid>
+</Window>

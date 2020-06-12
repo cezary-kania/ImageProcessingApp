@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NETCOREAPP;NETCOREAPP3_1
 F:\Documents\CSharpProjects\ImageProcessingApp\ImageProcessingApp\ImageProcessingApp\App.xaml
-7-136319751
+222046961897
 
-13-1323419840
-193353083848
-Views\HistogramWindow.xaml;Views\ImageWindow.xaml;Views\MainWindow.xaml;Views\PointOperationsWindow.xaml;Views\PosterizeWindow.xaml;Views\RangeStrWindow.xaml;Views\ThresholdingWindow.xaml;
+281616099641
+2001012862667
+Views\BluringWindow.xaml;Views\CustomMaskWindow.xaml;Views\EdetectionWindow.xaml;Views\HistogramWindow.xaml;Views\ImageWindow.xaml;Views\Lab5_thresholding.xaml;Views\lab6_featuresVector.xaml;Views\lab6_SVM.xaml;Views\LinearSharpenWindow.xaml;Views\MainWindow.xaml;Views\MaskConvolutionWindow.xaml;Views\MedianBlurWindow.xaml;Views\MorphologicalOperationsWindow.xaml;Views\ObjectSegmentationWindow.xaml;Views\ObjectSegmentationWindow2.xaml;Views\PointOperationsWindow.xaml;Views\PosterizeWindow.xaml;Views\PrewittWindow.xaml;Views\RangeStrWindow.xaml;Views\SkeletonizationWindow.xaml;Views\TestUserControl.xaml;Views\ThresholdingWindow.xaml;
 
 False
 
